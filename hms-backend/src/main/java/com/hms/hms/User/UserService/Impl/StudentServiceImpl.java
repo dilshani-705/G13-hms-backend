@@ -2,16 +2,22 @@ package com.hms.hms.User.UserService.Impl;
 
 import com.hms.hms.User.AllUserMapper.StudentMapper;
 import com.hms.hms.User.UserDataTransferObject.StudentDto;
-import com.hms.hms.User.UserEntity.Admin;
 import com.hms.hms.User.UserEntity.Student;
 import com.hms.hms.User.UserRepository.StudentRepository;
 import com.hms.hms.User.UserService.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class StudentServiceImpl implements StudentService {
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+    @Autowired
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
     @Override
     public StudentDto createStudent(StudentDto studentDto) {
         Student student= StudentMapper.mapDtoToStudent(studentDto);

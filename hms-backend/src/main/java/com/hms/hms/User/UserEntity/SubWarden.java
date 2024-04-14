@@ -1,6 +1,7 @@
 package com.hms.hms.User.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@PrimaryKeyJoinColumn(name = "sub_warden_id")
 public class SubWarden extends User {
     public SubWarden(String userID, String fullName, String address, Date dob, String email, String gender, String nationality, String role, String contactNo, String password, Date dateOfEmployment) {
         super(userID, fullName, address, dob, email, gender, nationality, role, contactNo, password);

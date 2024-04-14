@@ -1,19 +1,23 @@
 package com.hms.hms.User.UserService.Impl;
 
-import com.hms.hms.User.AllUserMapper.AdminMapper;
 import com.hms.hms.User.AllUserMapper.WardenMapper;
 import com.hms.hms.User.UserDataTransferObject.WardenDto;
-import com.hms.hms.User.UserEntity.Admin;
-import com.hms.hms.User.UserEntity.SubWarden;
 import com.hms.hms.User.UserEntity.Warden;
 import com.hms.hms.User.UserRepository.WardenRepository;
 import com.hms.hms.User.UserService.WardenService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class WardenServiceImpl implements WardenService {
-    private WardenRepository wardenRepository;
+    private final WardenRepository wardenRepository;
+    @Autowired
+    public WardenServiceImpl(WardenRepository wardenRepository) {
+        this.wardenRepository = wardenRepository;
+    }
+
     @Override
     public WardenDto createWarden(WardenDto wardenDto) {
         Warden warden= WardenMapper.mapDtoToWarden(wardenDto);

@@ -2,6 +2,7 @@ package com.hms.hms.User.UserEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "student")
+@PrimaryKeyJoinColumn(name = "student_id")
 public class Student extends User{
     public Student(String userID, String fullName, String address, Date dob, String email, String gender, String nationality, String role, String contactNo, String password, String department, String level, String guardianName, String guardianAddress, String guardianContactNo, String relationship) {
         super(userID, fullName, address, dob, email, gender, nationality, role, contactNo, password);

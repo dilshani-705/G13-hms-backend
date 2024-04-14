@@ -1,18 +1,23 @@
 package com.hms.hms.User.UserService.Impl;
 
-import com.hms.hms.User.AllUserMapper.AdminMapper;
 import com.hms.hms.User.AllUserMapper.SubWardenMapper;
 import com.hms.hms.User.UserDataTransferObject.SubWardenDto;
-import com.hms.hms.User.UserEntity.Admin;
 import com.hms.hms.User.UserEntity.SubWarden;
 import com.hms.hms.User.UserRepository.SubWardenRepository;
 import com.hms.hms.User.UserService.SubWardenService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class SubWardenServiceImpl implements SubWardenService {
-    private SubWardenRepository subWardenRepository;
+    private final SubWardenRepository subWardenRepository;
+    @Autowired
+    public SubWardenServiceImpl(SubWardenRepository subWardenRepository) {
+        this.subWardenRepository = subWardenRepository;
+    }
+
     @Override
     public SubWardenDto createSubWarden(SubWardenDto subWardenDto) {
         SubWarden subWarden= SubWardenMapper.mapDtoToSubWarden(subWardenDto);

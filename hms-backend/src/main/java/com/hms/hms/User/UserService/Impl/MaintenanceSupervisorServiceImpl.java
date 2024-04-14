@@ -1,18 +1,23 @@
 package com.hms.hms.User.UserService.Impl;
 
-import com.hms.hms.User.AllUserMapper.AdminMapper;
 import com.hms.hms.User.AllUserMapper.MaintenanceSupervisorMapper;
 import com.hms.hms.User.UserDataTransferObject.MaintenanceSupervisorDto;
-import com.hms.hms.User.UserEntity.Admin;
 import com.hms.hms.User.UserEntity.MaintenanceSupervisor;
 import com.hms.hms.User.UserRepository.MaintenanceSupervisorRepository;
 import com.hms.hms.User.UserService.MaintenanceSupervisorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorService {
-    private MaintenanceSupervisorRepository maintenanceSupervisorRepository;
+    private final MaintenanceSupervisorRepository maintenanceSupervisorRepository;
+@Autowired
+    public MaintenanceSupervisorServiceImpl(MaintenanceSupervisorRepository maintenanceSupervisorRepository) {
+        this.maintenanceSupervisorRepository = maintenanceSupervisorRepository;
+    }
+
     @Override
     public MaintenanceSupervisorDto createMaintenanceSupervisor(MaintenanceSupervisorDto maintenanceSupervisorDto) {
         MaintenanceSupervisor maintenanceSupervisor= MaintenanceSupervisorMapper.mapDtoToMaintenanceSupervisor(maintenanceSupervisorDto);

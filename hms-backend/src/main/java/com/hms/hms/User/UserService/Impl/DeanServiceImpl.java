@@ -1,18 +1,23 @@
 package com.hms.hms.User.UserService.Impl;
 
-import com.hms.hms.User.AllUserMapper.AdminMapper;
 import com.hms.hms.User.AllUserMapper.DeanMapper;
 import com.hms.hms.User.UserDataTransferObject.DeanDto;
-import com.hms.hms.User.UserEntity.Admin;
 import com.hms.hms.User.UserEntity.Dean;
 import com.hms.hms.User.UserRepository.DeanRepository;
 import com.hms.hms.User.UserService.DeanService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class DeanServiceImpl implements DeanService {
-    private DeanRepository deanRepository;
+    private final DeanRepository deanRepository;
+    @Autowired
+    public DeanServiceImpl(DeanRepository deanRepository) {
+        this.deanRepository = deanRepository;
+    }
+
     @Override
     public DeanDto createDean(DeanDto deanDto) {
         Dean dean= DeanMapper.mapDtoToDean(deanDto);

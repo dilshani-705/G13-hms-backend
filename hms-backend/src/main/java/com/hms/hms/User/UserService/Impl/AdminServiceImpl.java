@@ -5,12 +5,21 @@ import com.hms.hms.User.UserDataTransferObject.AdminDto;
 import com.hms.hms.User.UserEntity.Admin;
 import com.hms.hms.User.UserRepository.AdminRepository;
 import com.hms.hms.User.UserService.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class AdminServiceImpl implements AdminService {
-     private AdminRepository adminRepository;
+     private final AdminRepository adminRepository;
+
+     @Autowired
+    public AdminServiceImpl(AdminRepository adminRepository) {
+        this.adminRepository = adminRepository;
+
+    }
+
     @Override
     public AdminDto createAdmin(AdminDto adminDto) {
         Admin admin= AdminMapper.mapDtoToAdmin(adminDto);
