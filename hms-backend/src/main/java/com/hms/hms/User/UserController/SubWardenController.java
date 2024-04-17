@@ -7,10 +7,9 @@ import com.hms.hms.User.UserService.SubWardenService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -23,5 +22,10 @@ public class SubWardenController {
         SubWardenDto savedSubWarden=subWardenService.createSubWarden(subWardenDto);
         return new ResponseEntity<>(savedSubWarden, HttpStatus.CREATED);
 
+    }//See all sub wardens
+    @GetMapping
+    public ResponseEntity<List<SubWardenDto>>getAllSubWardens(){
+        List<SubWardenDto>subWarden=subWardenService.getAllSubWardens();
+        return ResponseEntity.ok(subWarden);
     }
 }

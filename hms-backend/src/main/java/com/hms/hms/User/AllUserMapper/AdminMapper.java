@@ -31,6 +31,7 @@ public class AdminMapper {
                 adminDto.getRole(),
                 adminDto.getContactNo(),
                 adminDto.getPassword()
+
         );
     }
 }

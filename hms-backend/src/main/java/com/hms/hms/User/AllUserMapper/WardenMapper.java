@@ -17,6 +17,7 @@ public class WardenMapper{
                 warden.getContactNo(),
                 warden.getPassword(),
                 warden.getLecturePost()
+
         );
     }
     public static Warden mapDtoToWarden(WardenDto wardenDto){
@@ -32,6 +33,7 @@ public class WardenMapper{
                 wardenDto.getContactNo(),
                 wardenDto.getPassword(),
                 wardenDto.getLecturePost()
+
         );
     }
 }

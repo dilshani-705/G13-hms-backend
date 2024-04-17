@@ -1,8 +1,10 @@
 package com.hms.hms.User.UserService.Impl;
 
 import com.hms.hms.User.AllUserMapper.AdminMapper;
+import com.hms.hms.User.AllUserMapper.MaintenanceSupervisorMapper;
 import com.hms.hms.User.UserDataTransferObject.AdminDto;
 import com.hms.hms.User.UserEntity.Admin;
+import com.hms.hms.User.UserEntity.MaintenanceSupervisor;
 import com.hms.hms.User.UserRepository.AdminRepository;
 import com.hms.hms.User.UserService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public AdminDto getAdminById(String userId) {
-        Admin admin=adminRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public AdminDto getAdminById(String admin_id) {
+        Admin admin=adminRepository.findById(admin_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+admin_id));
         return AdminMapper.mapAdminToDto(admin);
     }
+
 
     @Override
     public List<AdminDto> getAllAdmins() {
@@ -41,9 +44,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public AdminDto updatedAdmin(String userId, AdminDto updatedAdmin) {
-        Admin admin=adminRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public AdminDto updatedAdmin(String admin_id, AdminDto updatedAdmin) {
+        Admin admin=adminRepository.findById(admin_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+admin_id));
         admin.setFullName(updatedAdmin.getFullName());
         admin.setAddress(updatedAdmin.getAddress());
         admin.setDob(updatedAdmin.getDob());
@@ -60,10 +63,10 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteAdmin(String userId) {
-        Admin admin=adminRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public void deleteAdmin(String admin_id) {
+        Admin admin=adminRepository.findById(admin_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+admin_id));
 
-        adminRepository.deleteById(userId);
+        adminRepository.deleteById(admin_id);
     }
 }

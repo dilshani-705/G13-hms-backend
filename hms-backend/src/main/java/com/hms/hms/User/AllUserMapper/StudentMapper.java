@@ -22,6 +22,7 @@ public static StudentDto mapStudentToDto(Student student) {
         student.getGuardianAddress(),
         student.getGuardianContactNo(),
         student.getRelationship()
+
         );
         }
     public static Student mapDtoToStudent(StudentDto studentDto) {
@@ -42,6 +43,7 @@ public static StudentDto mapStudentToDto(Student student) {
                 studentDto.getGuardianAddress(),
                 studentDto.getGuardianContactNo(),
                 studentDto.getRelationship()
+
         );
     }
 

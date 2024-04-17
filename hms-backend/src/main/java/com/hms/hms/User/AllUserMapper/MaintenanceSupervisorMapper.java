@@ -16,6 +16,7 @@ public class MaintenanceSupervisorMapper {
                 maintenanceSupervisor.getRole(),
                 maintenanceSupervisor.getContactNo(),
                 maintenanceSupervisor.getPassword()
+
         );
     }
 
@@ -31,6 +32,7 @@ public class MaintenanceSupervisorMapper {
                 maintenanceSupervisorDto.getRole(),
                 maintenanceSupervisorDto.getContactNo(),
                 maintenanceSupervisorDto.getPassword()
+
         );
     }
 }

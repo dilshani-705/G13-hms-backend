@@ -26,9 +26,9 @@ public class DeanServiceImpl implements DeanService {
     }
 
     @Override
-    public DeanDto getDeanById(String userId) {
-        Dean dean=deanRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public DeanDto getDeanById(String dean_id) {
+        Dean dean=deanRepository.findById(dean_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+dean_id));
         return DeanMapper.mapDeanToDto(dean);
     }
 

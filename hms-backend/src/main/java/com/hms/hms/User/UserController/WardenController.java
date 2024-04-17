@@ -8,10 +8,9 @@ import lombok.AllArgsConstructor;
 import org.hibernate.boot.model.internal.WrappedInferredData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -24,5 +23,11 @@ public class WardenController {
         WardenDto savedWarden=wardenService.createWarden(wardenDto);
         return new ResponseEntity<>(savedWarden, HttpStatus.CREATED);
 
+    }
+    //See all wardens
+    @GetMapping
+    public ResponseEntity<List<WardenDto>>getAllWardens(){
+        List<WardenDto>warden=wardenService.getAllWardens();
+        return ResponseEntity.ok(warden);
     }
 }

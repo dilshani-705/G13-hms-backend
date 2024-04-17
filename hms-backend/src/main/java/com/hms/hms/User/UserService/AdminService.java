@@ -8,7 +8,7 @@ import com.hms.hms.User.UserEntity.Admin;
 import java.util.List;
 public interface AdminService {
     AdminDto createAdmin(AdminDto adminDto);
-    AdminDto getAdminById(String userId);
+    AdminDto getAdminById(String admin_id);
     List<AdminDto>getAllAdmins();
     AdminDto updatedAdmin(String userId, AdminDto updatedAdmin);
     void deleteAdmin(String userId);

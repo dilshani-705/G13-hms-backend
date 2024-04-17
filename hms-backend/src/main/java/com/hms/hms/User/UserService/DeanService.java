@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DeanService {
     DeanDto createDean(DeanDto deanDto);
-    DeanDto getDeanById(String userId);
+    DeanDto getDeanById(String userID);
     List<DeanDto> getAllDeans();
     DeanDto updatedDean(String userId, DeanDto updatedDean);
     void deleteDean(String userId);

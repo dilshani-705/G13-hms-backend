@@ -1,8 +1,6 @@
 package com.hms.hms.User.UserEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +13,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@PrimaryKeyJoinColumn(name = "warden_id")
+@Table(name = "warden")
+@PrimaryKeyJoinColumn(name = "warden_id", referencedColumnName = "user_id")
 public class Warden extends User {
+
     public Warden(String userID, String fullName, String address, Date dob, String email, String gender, String nationality, String role, String contactNo, String password, String lecturePost) {
         super(userID, fullName, address, dob, email, gender, nationality, role, contactNo, password);
         this.lecturePost = lecturePost;
+
     }
 
     @Column(name = "lecture_post")

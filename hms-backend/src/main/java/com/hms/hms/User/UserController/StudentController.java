@@ -7,10 +7,9 @@ import com.hms.hms.User.UserService.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -23,5 +22,11 @@ public class StudentController {
         StudentDto savedStudent=studentService.createStudent(studentDto);
         return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
 
+    }
+    //See all students
+    @GetMapping
+    public ResponseEntity<List<StudentDto>>getAllStudents(){
+        List<StudentDto>student=studentService.getAllStudents();
+        return ResponseEntity.ok(student);
     }
 }

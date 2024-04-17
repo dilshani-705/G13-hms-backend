@@ -16,6 +16,7 @@ public class DeanMapper {
                 dean.getRole(),
                 dean.getContactNo(),
                 dean.getPassword()
+
         );
     }
 
@@ -31,6 +32,7 @@ public class DeanMapper {
                 deanDto.getRole(),
                 deanDto.getContactNo(),
                 deanDto.getPassword()
+
         );
     }
 }

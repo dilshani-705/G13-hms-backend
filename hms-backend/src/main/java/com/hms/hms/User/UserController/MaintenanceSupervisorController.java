@@ -7,14 +7,13 @@ import com.hms.hms.User.UserService.MaintenanceSupervisorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/maintenance-supervisors")
+@RequestMapping("/api/maintenance_supervisors")
 public class MaintenanceSupervisorController {
     private MaintenanceSupervisorService maintenanceSupervisorService;
     //Add an maintenance supervisor
@@ -23,5 +22,11 @@ public class MaintenanceSupervisorController {
         MaintenanceSupervisorDto savedMaintenanceSupervisor=maintenanceSupervisorService.createMaintenanceSupervisor(maintenanceSupervisorDto);
         return new ResponseEntity<>(savedMaintenanceSupervisor, HttpStatus.CREATED);
 
+    }
+    //See all maintenance supervisors
+    @GetMapping
+    public ResponseEntity<List<MaintenanceSupervisorDto>>getAllMaintenanceSupervisors(){
+        List<MaintenanceSupervisorDto>maintenanceSupervisor=maintenanceSupervisorService.getAllMaintenanceSupervisors();
+        return ResponseEntity.ok(maintenanceSupervisor);
     }
 }

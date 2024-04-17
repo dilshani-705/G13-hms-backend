@@ -23,9 +23,9 @@ public class AdminController {
 
     }
     //See an admin
-    @GetMapping("{userID}")
-    public ResponseEntity<AdminDto>getAdminById(@PathVariable("userID") String adminID){
-        AdminDto adminDto=adminService.getAdminById(adminID);
+    @GetMapping("{adminId}")
+    public ResponseEntity<AdminDto>getAdminById(@PathVariable("adminId") String admin_id){
+        AdminDto adminDto=adminService.getAdminById(admin_id);
         return ResponseEntity.ok(adminDto);
     }
     //See all admins
@@ -35,13 +35,14 @@ public class AdminController {
         return ResponseEntity.ok(admin);
     }
     //Update ad admin
-    @PutMapping("{userID}")
-    public ResponseEntity<AdminDto>updateAdmin(@PathVariable("userID")String adminID,@RequestBody AdminDto updatedAdmin){
-        AdminDto adminDto=adminService.updatedAdmin(adminID,updatedAdmin);
+    @PutMapping("{adminId}")
+    public ResponseEntity<AdminDto>updateAdmin(@PathVariable("adminId")String admin_id,@RequestBody AdminDto updatedAdmin){
+        AdminDto adminDto=adminService.updatedAdmin(admin_id,updatedAdmin);
         return  ResponseEntity.ok(adminDto);
     }
-    public ResponseEntity<String>deleteAdmin(@PathVariable("userID")String adminID){
-        adminService.deleteAdmin(adminID);
+    @DeleteMapping("{adminId}")
+    public ResponseEntity<String>deleteAdmin(@PathVariable("adminId")String admin_id){
+        adminService.deleteAdmin(admin_id);
         return  ResponseEntity.ok("Delete admin successfully");
     }
 

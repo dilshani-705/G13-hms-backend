@@ -13,9 +13,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WardenDto extends UserDto {
+
     public WardenDto(String userID, String fullName, String address, Date dob, String email, String gender, String nationality, String role, String contactNo, String password, String lecturePost) {
         super(userID, fullName, address, dob, email, gender, nationality, role, contactNo, password);
         this.lecturePost = lecturePost;
+
     }
 
     private String lecturePost;

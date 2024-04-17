@@ -17,6 +17,7 @@ public class SubWardenMapper{
                 subwarden.getContactNo(),
                 subwarden.getPassword(),
                 subwarden.getDateOfEmployment()
+
         );
     }
     public static SubWarden mapDtoToSubWarden(SubWardenDto subWardenDto){
@@ -32,6 +33,7 @@ public class SubWardenMapper{
                 subWardenDto.getContactNo(),
                 subWardenDto.getPassword(),
                 subWardenDto.getDateOfEmployment()
+
         );
     }
 }
