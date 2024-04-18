@@ -5,10 +5,7 @@ import com.hms.hms.User.UserDataTransferObject.UserDto;
 import com.hms.hms.User.UserService.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +20,11 @@ public class UsersController {
     public ResponseEntity<List<UserDto>> getAllUsers(){
         List<UserDto>users=usersService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+    // Get user by ID
+    @GetMapping("{userId}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable("userId") String userId) {
+        UserDto user = usersService.getUserById(userId);
+        return ResponseEntity.ok(user);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -24,5 +25,15 @@ public class UsersServiceImpl implements UsersService {
     public List<UserDto> getAllUsers() {
         List<User> users=usersRepo.findAll();
         return users.stream().map((user1 -> UserMapper.mapUserToDto(user1))).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto getUserById(String userId) {
+        Optional<User> userOptional = usersRepo.findById(userId);
+        if (userOptional.isPresent()) {
+            return UserMapper.mapUserToDto(userOptional.get());
+        } else {
+            throw new RuntimeException("User not found with ID: " + userId);
+        }
     }
 }
