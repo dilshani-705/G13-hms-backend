@@ -17,8 +17,8 @@ public class Fee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "AcademicYear")
-    private String academicYear;
+    @Column(name = "AcademicYear") //Colum name
+    private String academicYear; //Feild name
 
     @Column(name = "Amount")
     private String amount;
