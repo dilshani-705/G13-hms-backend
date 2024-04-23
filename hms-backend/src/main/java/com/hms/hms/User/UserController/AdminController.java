@@ -4,6 +4,7 @@ import com.hms.hms.User.UserDataTransferObject.AdminDto;
 import com.hms.hms.User.UserService.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,19 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/admins")
+@CrossOrigin(origins ="http://localhost:3000")
 public class AdminController {
     private AdminService adminService;
     //Add an admin
     @PostMapping
     public ResponseEntity<AdminDto> createAdmin(@RequestBody AdminDto adminDto){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
+
         AdminDto savedAdmin=adminService.createAdmin(adminDto);
-        return new ResponseEntity<>(savedAdmin, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .headers(headers)
+                .body(savedAdmin);
 
     }
     //See an admin
