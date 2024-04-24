@@ -14,18 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/admins")
-@CrossOrigin(origins ="http://localhost:3000")
+
 public class AdminController {
     private AdminService adminService;
     //Add an admin
     @PostMapping
     public ResponseEntity<AdminDto> createAdmin(@RequestBody AdminDto adminDto){
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
 
         AdminDto savedAdmin=adminService.createAdmin(adminDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .headers(headers)
                 .body(savedAdmin);
 
     }
