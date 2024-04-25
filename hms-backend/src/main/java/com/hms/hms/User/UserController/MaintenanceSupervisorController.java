@@ -29,4 +29,10 @@ public class MaintenanceSupervisorController {
         List<MaintenanceSupervisorDto>maintenanceSupervisor=maintenanceSupervisorService.getAllMaintenanceSupervisors();
         return ResponseEntity.ok(maintenanceSupervisor);
     }
+    //See an maintenance supervisors
+    @GetMapping("/{maintenanceSupervisorId}")
+    public ResponseEntity<MaintenanceSupervisorDto>getMaintenanceSupervisorById(@PathVariable("maintenanceSupervisorId") String maintenanceSupervisor_id){
+        MaintenanceSupervisorDto maintenanceSupervisorDto=maintenanceSupervisorService.getMaintenanceSupervisorById(maintenanceSupervisor_id);
+        return ResponseEntity.ok(maintenanceSupervisorDto);
+    }
 }

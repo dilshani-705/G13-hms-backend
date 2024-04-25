@@ -26,9 +26,9 @@ public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorSe
     }
 
     @Override
-    public MaintenanceSupervisorDto getMaintenanceSupervisorById(String userId) {
-        MaintenanceSupervisor maintenanceSupervisor=maintenanceSupervisorRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public MaintenanceSupervisorDto getMaintenanceSupervisorById(String maintenanceSupervisor_id) {
+        MaintenanceSupervisor maintenanceSupervisor=maintenanceSupervisorRepository.findById(maintenanceSupervisor_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+maintenanceSupervisor_id));
         return MaintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(maintenanceSupervisor);
 
     }

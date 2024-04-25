@@ -1,6 +1,7 @@
 package com.hms.hms.User.UserController;
 
 import com.hms.hms.User.UserDataTransferObject.AdminDto;
+import com.hms.hms.User.UserDataTransferObject.SubWardenDto;
 import com.hms.hms.User.UserDataTransferObject.WardenDto;
 import com.hms.hms.User.UserService.AdminService;
 import com.hms.hms.User.UserService.WardenService;
@@ -29,5 +30,10 @@ public class WardenController {
     public ResponseEntity<List<WardenDto>>getAllWardens(){
         List<WardenDto>warden=wardenService.getAllWardens();
         return ResponseEntity.ok(warden);
+    }
+    @GetMapping("/{wardenId}")
+    public ResponseEntity<WardenDto>getWardenById(@PathVariable("wardenId") String warden_id){
+        WardenDto wardenDto=wardenService.getWardenById(warden_id);
+        return ResponseEntity.ok(wardenDto);
     }
 }

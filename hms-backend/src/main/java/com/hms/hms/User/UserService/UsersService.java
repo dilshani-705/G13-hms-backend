@@ -5,9 +5,10 @@ import com.hms.hms.User.UserDataTransferObject.WardenDto;
 import com.hms.hms.User.UserEntity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsersService {
     List<UserDto> getAllUsers();
-    UserDto getUserById(String userId);
+    Optional<User> getUserById(String userId);
 
 }

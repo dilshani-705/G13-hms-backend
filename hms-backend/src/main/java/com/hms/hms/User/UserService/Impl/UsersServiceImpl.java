@@ -1,9 +1,7 @@
 package com.hms.hms.User.UserService.Impl;
 
-import com.hms.hms.User.AllUserMapper.AdminMapper;
 import com.hms.hms.User.AllUserMapper.UserMapper;
 import com.hms.hms.User.UserDataTransferObject.UserDto;
-import com.hms.hms.User.UserEntity.Admin;
 import com.hms.hms.User.UserEntity.User;
 import com.hms.hms.User.UserRepository.UsersRepo;
 import com.hms.hms.User.UserService.UsersService;
@@ -28,12 +26,9 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserDto getUserById(String userId) {
-        Optional<User> userOptional = usersRepo.findById(userId);
-        if (userOptional.isPresent()) {
-            return UserMapper.mapUserToDto(userOptional.get());
-        } else {
-            throw new RuntimeException("User not found with ID: " + userId);
-        }
+    public Optional<User> getUserById(String userId) {
+        return usersRepo.findById(userId);
     }
+
+
 }

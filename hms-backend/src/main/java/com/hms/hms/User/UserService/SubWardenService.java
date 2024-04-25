@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SubWardenService {
     SubWardenDto createSubWarden(SubWardenDto subWardenDto);
-    SubWardenDto getSubWardenById(String userId);
+    SubWardenDto getSubWardenById(String subWarden_id);
     List<SubWardenDto> getAllSubWardens();
     SubWardenDto updatedSubWarden(String userId, SubWardenDto updatedSubAWarden);
     void deleteSubWarden(String userId);

@@ -26,9 +26,9 @@ public class SubWardenServiceImpl implements SubWardenService {
     }
 
     @Override
-    public SubWardenDto getSubWardenById(String userId) {
-        SubWarden subWarden=subWardenRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public SubWardenDto getSubWardenById(String subWarden_id) {
+        SubWarden subWarden=subWardenRepository.findById(subWarden_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+subWarden_id));
         return SubWardenMapper.mapSubWardenToDto(subWarden);
     }
 

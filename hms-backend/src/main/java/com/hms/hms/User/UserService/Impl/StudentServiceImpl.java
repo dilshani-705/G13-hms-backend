@@ -26,9 +26,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDto getStudentById(String userId) {
-        Student student=studentRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public StudentDto getStudentById(String student_id) {
+        Student student=studentRepository.findById(student_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+student_id));
         return StudentMapper.mapStudentToDto(student);
     }
 

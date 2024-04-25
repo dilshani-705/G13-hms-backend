@@ -1,6 +1,7 @@
 package com.hms.hms.User.UserController;
 
 import com.hms.hms.User.UserDataTransferObject.AdminDto;
+import com.hms.hms.User.UserDataTransferObject.MaintenanceSupervisorDto;
 import com.hms.hms.User.UserDataTransferObject.StudentDto;
 import com.hms.hms.User.UserService.AdminService;
 import com.hms.hms.User.UserService.StudentService;
@@ -28,5 +29,10 @@ public class StudentController {
     public ResponseEntity<List<StudentDto>>getAllStudents(){
         List<StudentDto>student=studentService.getAllStudents();
         return ResponseEntity.ok(student);
+    }
+    @GetMapping("/{studentId}")
+    public ResponseEntity<StudentDto>getStudentById(@PathVariable("studentId") String student_id){
+        StudentDto studentDto=studentService.getStudentById(student_id);
+        return ResponseEntity.ok(studentDto);
     }
 }

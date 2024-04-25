@@ -26,9 +26,9 @@ public class WardenServiceImpl implements WardenService {
     }
 
     @Override
-    public WardenDto getWardenById(String userId) {
-        Warden warden=wardenRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public WardenDto getWardenById(String warden_id) {
+        Warden warden=wardenRepository.findById(warden_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+warden_id));
         return WardenMapper.mapWardenToDto(warden);
     }
 

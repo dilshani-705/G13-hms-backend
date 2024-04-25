@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MaintenanceSupervisorService {
     MaintenanceSupervisorDto createMaintenanceSupervisor(MaintenanceSupervisorDto maintenanceSupervisorDto);
-    MaintenanceSupervisorDto getMaintenanceSupervisorById(String userId);
+    MaintenanceSupervisorDto getMaintenanceSupervisorById(String maintenanceSupervisor_id);
     List<MaintenanceSupervisorDto> getAllMaintenanceSupervisors();
     MaintenanceSupervisorDto updatedMaintenanceSupervisor(String userId, MaintenanceSupervisorDto updatedMaintenanceSupervisor);
     void deleteMaintenanceSupervisor(String userId);
