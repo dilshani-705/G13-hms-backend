@@ -1,5 +1,7 @@
 package com.hms.hms.User.UserController;
 
+import com.hms.hms.Login.LoginDto;
+import com.hms.hms.Login.LoginMessage;
 import com.hms.hms.User.UserDataTransferObject.UserDto;
 import com.hms.hms.User.UserEntity.User;
 import com.hms.hms.User.UserService.UsersService;
@@ -16,6 +18,11 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 public class UsersController {
     private UsersService usersService;
+    @PostMapping("/{login}")
+    public ResponseEntity<?>loginUser(@RequestBody LoginDto loginDto){
+        LoginMessage loginMessage=usersService.loginUser(loginDto);
+        return ResponseEntity.ok(loginMessage);
+    }
     //See all users
     @GetMapping
     public ResponseEntity<List<UserDto>>getAllUsers(){

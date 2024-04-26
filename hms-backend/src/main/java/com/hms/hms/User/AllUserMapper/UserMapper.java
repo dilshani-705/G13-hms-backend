@@ -2,8 +2,15 @@ package com.hms.hms.User.AllUserMapper;
 
 import com.hms.hms.User.UserDataTransferObject.UserDto;
 import com.hms.hms.User.UserEntity.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserMapper {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public static UserDto mapUserToDto(User user) {
         return  new UserDto(
                 user.getUserID(),
@@ -15,7 +22,7 @@ public class UserMapper {
                 user.getNationality(),
                 user.getRole(),
                 user.getContactNo(),
-                user.getPassword()
+                this.passwordEncoder.encode(user.getPassword())
         );
     }
 
@@ -30,7 +37,7 @@ public class UserMapper {
                 userDto.getNationality(),
                 userDto.getRole(),
                 userDto.getContactNo(),
-                userDto.getPassword()
+                this.passwordEncoder.encode(userDto.getPassword())
         );
     }
 }

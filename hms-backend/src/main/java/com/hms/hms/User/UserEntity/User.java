@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 
@@ -38,5 +39,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-
+    public void setPassword(String password, PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
+    }
 }
