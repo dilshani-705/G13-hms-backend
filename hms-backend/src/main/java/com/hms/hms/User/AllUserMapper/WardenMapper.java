@@ -2,9 +2,11 @@ package com.hms.hms.User.AllUserMapper;
 
 import com.hms.hms.User.UserDataTransferObject.WardenDto;
 import com.hms.hms.User.UserEntity.Warden;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class WardenMapper{
-    public static WardenDto mapWardenToDto(Warden warden){
+    private PasswordEncoder passwordEncoder;
+    public WardenDto mapWardenToDto(Warden warden){
         return new WardenDto(
                 warden.getUserID(),
                 warden.getFullName(),
@@ -15,12 +17,12 @@ public class WardenMapper{
                 warden.getNationality(),
                 warden.getRole(),
                 warden.getContactNo(),
-                warden.getPassword(),
+               this.passwordEncoder.encode(warden.getPassword()),
                 warden.getLecturePost()
 
         );
     }
-    public static Warden mapDtoToWarden(WardenDto wardenDto){
+    public Warden mapDtoToWarden(WardenDto wardenDto){
         return  new Warden(
                 wardenDto.getUserID(),
                 wardenDto.getFullName(),
@@ -31,7 +33,7 @@ public class WardenMapper{
                 wardenDto.getNationality(),
                 wardenDto.getRole(),
                 wardenDto.getContactNo(),
-                wardenDto.getPassword(),
+                this.passwordEncoder.encode(wardenDto.getPassword()),
                 wardenDto.getLecturePost()
 
         );

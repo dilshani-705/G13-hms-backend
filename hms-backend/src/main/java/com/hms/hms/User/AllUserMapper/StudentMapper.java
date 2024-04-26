@@ -2,9 +2,11 @@ package com.hms.hms.User.AllUserMapper;
 
 import com.hms.hms.User.UserDataTransferObject.StudentDto;
 import com.hms.hms.User.UserEntity.Student;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class StudentMapper {
-public static StudentDto mapStudentToDto(Student student) {
+    private PasswordEncoder passwordEncoder;
+public StudentDto mapStudentToDto(Student student) {
         return new StudentDto(
         student.getUserID(),
         student.getFullName(),
@@ -15,7 +17,7 @@ public static StudentDto mapStudentToDto(Student student) {
         student.getNationality(),
         student.getRole(),
         student.getContactNo(),
-        student.getPassword(),
+        this.passwordEncoder.encode(student.getPassword()),
         student.getDepartment(),
         student.getLevel(),
         student.getGuardianName(),
@@ -25,7 +27,7 @@ public static StudentDto mapStudentToDto(Student student) {
 
         );
         }
-    public static Student mapDtoToStudent(StudentDto studentDto) {
+    public Student mapDtoToStudent(StudentDto studentDto) {
         return new Student(
                 studentDto.getUserID(),
                 studentDto.getFullName(),
@@ -36,7 +38,7 @@ public static StudentDto mapStudentToDto(Student student) {
                 studentDto.getNationality(),
                 studentDto.getRole(),
                 studentDto.getContactNo(),
-                studentDto.getPassword(),
+                this.passwordEncoder.encode(studentDto.getPassword()),
                 studentDto.getDepartment(),
                 studentDto.getLevel(),
                 studentDto.getGuardianName(),

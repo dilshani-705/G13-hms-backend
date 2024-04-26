@@ -2,9 +2,11 @@ package com.hms.hms.User.AllUserMapper;
 
 import com.hms.hms.User.UserDataTransferObject.MaintenanceSupervisorDto;
 import com.hms.hms.User.UserEntity.MaintenanceSupervisor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class MaintenanceSupervisorMapper {
-    public static MaintenanceSupervisorDto mapMaintenanceSupervisorToDto(MaintenanceSupervisor maintenanceSupervisor) {
+    private PasswordEncoder passwordEncoder;
+    public MaintenanceSupervisorDto mapMaintenanceSupervisorToDto(MaintenanceSupervisor maintenanceSupervisor) {
         return  new MaintenanceSupervisorDto(
                 maintenanceSupervisor.getUserID(),
                 maintenanceSupervisor.getFullName(),
@@ -15,12 +17,12 @@ public class MaintenanceSupervisorMapper {
                 maintenanceSupervisor.getNationality(),
                 maintenanceSupervisor.getRole(),
                 maintenanceSupervisor.getContactNo(),
-                maintenanceSupervisor.getPassword()
+                this.passwordEncoder.encode(maintenanceSupervisor.getPassword())
 
         );
     }
 
-    public static MaintenanceSupervisor mapDtoToMaintenanceSupervisor(MaintenanceSupervisorDto maintenanceSupervisorDto) {
+    public MaintenanceSupervisor mapDtoToMaintenanceSupervisor(MaintenanceSupervisorDto maintenanceSupervisorDto) {
         return new MaintenanceSupervisor(
                 maintenanceSupervisorDto.getUserID(),
                 maintenanceSupervisorDto.getFullName(),
@@ -31,7 +33,7 @@ public class MaintenanceSupervisorMapper {
                 maintenanceSupervisorDto.getNationality(),
                 maintenanceSupervisorDto.getRole(),
                 maintenanceSupervisorDto.getContactNo(),
-                maintenanceSupervisorDto.getPassword()
+               this.passwordEncoder.encode(maintenanceSupervisorDto.getPassword())
 
         );
     }

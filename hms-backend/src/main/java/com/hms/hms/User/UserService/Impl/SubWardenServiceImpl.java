@@ -6,6 +6,7 @@ import com.hms.hms.User.UserEntity.SubWarden;
 import com.hms.hms.User.UserRepository.SubWardenRepository;
 import com.hms.hms.User.UserService.SubWardenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class SubWardenServiceImpl implements SubWardenService {
     private final SubWardenRepository subWardenRepository;
+    private PasswordEncoder passwordEncoder;
+
+    SubWardenMapper subWardenMapper=new SubWardenMapper();
     @Autowired
     public SubWardenServiceImpl(SubWardenRepository subWardenRepository) {
         this.subWardenRepository = subWardenRepository;
@@ -20,22 +24,22 @@ public class SubWardenServiceImpl implements SubWardenService {
 
     @Override
     public SubWardenDto createSubWarden(SubWardenDto subWardenDto) {
-        SubWarden subWarden= SubWardenMapper.mapDtoToSubWarden(subWardenDto);
+        SubWarden subWarden= subWardenMapper.mapDtoToSubWarden(subWardenDto);
         SubWarden savedSubWarden=subWardenRepository.save(subWarden);
-        return SubWardenMapper.mapSubWardenToDto(savedSubWarden);
+        return subWardenMapper.mapSubWardenToDto(savedSubWarden);
     }
 
     @Override
     public SubWardenDto getSubWardenById(String subWarden_id) {
         SubWarden subWarden=subWardenRepository.findById(subWarden_id)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+subWarden_id));
-        return SubWardenMapper.mapSubWardenToDto(subWarden);
+        return subWardenMapper.mapSubWardenToDto(subWarden);
     }
 
     @Override
     public List<SubWardenDto> getAllSubWardens() {
         List<SubWarden> subWarden=subWardenRepository.findAll();
-        return subWarden.stream().map((subWarden1 -> SubWardenMapper.mapSubWardenToDto(subWarden1))).collect(Collectors.toList());
+        return subWarden.stream().map(subWardenMapper::mapSubWardenToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -50,11 +54,11 @@ public class SubWardenServiceImpl implements SubWardenService {
         subWarden.setNationality(updatedSubAWarden.getNationality());
         subWarden.setRole(updatedSubAWarden.getRole());
         subWarden.setContactNo(updatedSubAWarden.getContactNo());
-        subWarden.setPassword(updatedSubAWarden.getPassword());
+        subWarden.setPassword(updatedSubAWarden.getPassword(),passwordEncoder);
 
         SubWarden updatedSubWardenObj=subWardenRepository.save(subWarden);
 
-        return SubWardenMapper.mapSubWardenToDto(updatedSubWardenObj);
+        return subWardenMapper.mapSubWardenToDto(updatedSubWardenObj);
     }
 
     @Override

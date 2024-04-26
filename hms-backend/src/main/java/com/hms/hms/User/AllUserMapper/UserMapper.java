@@ -5,13 +5,13 @@ import com.hms.hms.User.UserEntity.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserMapper {
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public UserMapper(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public static UserDto mapUserToDto(User user) {
+    public UserDto mapUserToDto(User user) {
         return  new UserDto(
                 user.getUserID(),
                 user.getFullName(),

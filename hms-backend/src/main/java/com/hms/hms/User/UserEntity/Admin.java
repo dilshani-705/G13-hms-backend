@@ -20,4 +20,6 @@ public class Admin extends User {
         super(userID, fullName, address, dob, email, gender, nationality, role, contactNo, password);
 
     }
+
+
 }

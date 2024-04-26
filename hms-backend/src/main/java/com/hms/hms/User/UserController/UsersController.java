@@ -18,11 +18,11 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 public class UsersController {
     private UsersService usersService;
-    @PostMapping("/{login}")
-    public ResponseEntity<?>loginUser(@RequestBody LoginDto loginDto){
-        LoginMessage loginMessage=usersService.loginUser(loginDto);
-        return ResponseEntity.ok(loginMessage);
+    @PostMapping("/login")
+    public LoginMessage login(@RequestBody LoginDto loginDto){
+        return usersService.login(loginDto);
     }
+
     //See all users
     @GetMapping
     public ResponseEntity<List<UserDto>>getAllUsers(){

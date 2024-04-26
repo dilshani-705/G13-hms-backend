@@ -1,13 +1,12 @@
 package com.hms.hms.User.UserService.Impl;
 
 import com.hms.hms.User.AllUserMapper.AdminMapper;
-import com.hms.hms.User.AllUserMapper.MaintenanceSupervisorMapper;
 import com.hms.hms.User.UserDataTransferObject.AdminDto;
 import com.hms.hms.User.UserEntity.Admin;
-import com.hms.hms.User.UserEntity.MaintenanceSupervisor;
 import com.hms.hms.User.UserRepository.AdminRepository;
 import com.hms.hms.User.UserService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,52 +14,55 @@ import java.util.stream.Collectors;
 @Service
 public class AdminServiceImpl implements AdminService {
      private final AdminRepository adminRepository;
+    private PasswordEncoder passwordEncoder;
 
-     @Autowired
-    public AdminServiceImpl(AdminRepository adminRepository) {
+    public AdminServiceImpl(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
-
-    }
+         this.passwordEncoder = passwordEncoder;
+     }
 
     @Override
     public AdminDto createAdmin(AdminDto adminDto) {
-        Admin admin= AdminMapper.mapDtoToAdmin(adminDto);
+        AdminMapper adminMapper=new AdminMapper(passwordEncoder);
+        Admin admin= adminMapper.mapDtoToAdmin(adminDto);
         Admin savedAdmin=adminRepository.save(admin);
-        return AdminMapper.mapAdminToDto(savedAdmin);
+        return adminMapper.mapAdminToDto(savedAdmin);
     }
 
     @Override
     public AdminDto getAdminById(String admin_id) {
+        AdminMapper adminMapper=new AdminMapper(passwordEncoder);
         Admin admin=adminRepository.findById(admin_id)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+admin_id));
-        return AdminMapper.mapAdminToDto(admin);
+        return adminMapper.mapAdminToDto(admin);
     }
-
 
     @Override
     public List<AdminDto> getAllAdmins() {
-        List<Admin> admin=adminRepository.findAll();
-        return admin.stream().map((admin1 -> AdminMapper.mapAdminToDto(admin1))).collect(Collectors.toList());
+        List<Admin> admins=adminRepository.findAll();
+        AdminMapper adminMapper=new AdminMapper(passwordEncoder);
+        return admins.stream().map(adminMapper::mapAdminToDto).collect(Collectors.toList());
     }
 
+
     @Override
-    public AdminDto updatedAdmin(String admin_id, AdminDto updatedAdmin) {
-        Admin admin=adminRepository.findById(admin_id)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+admin_id));
+    public AdminDto updatedAdmin(String userId, AdminDto updatedAdmin) {
+        Admin admin=adminRepository.findById(userId)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
         admin.setFullName(updatedAdmin.getFullName());
         admin.setAddress(updatedAdmin.getAddress());
+        admin.setDob(updatedAdmin.getDob());
+        admin.setContactNo(updatedAdmin.getContactNo());
         admin.setDob(updatedAdmin.getDob());
         admin.setEmail(updatedAdmin.getEmail());
         admin.setGender(updatedAdmin.getGender());
         admin.setNationality(updatedAdmin.getNationality());
         admin.setRole(updatedAdmin.getRole());
         admin.setContactNo(updatedAdmin.getContactNo());
-        admin.setPassword(updatedAdmin.getPassword());
-
-        Admin updatedAdminObj=adminRepository.save(admin);
-
-        return AdminMapper.mapAdminToDto(updatedAdminObj);
+        admin.setPassword(updatedAdmin.getPassword(),passwordEncoder);
+        return updatedAdmin;
     }
+
 
     @Override
     public void deleteAdmin(String admin_id) {

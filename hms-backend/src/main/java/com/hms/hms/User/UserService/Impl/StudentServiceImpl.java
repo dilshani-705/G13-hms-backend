@@ -6,6 +6,7 @@ import com.hms.hms.User.UserEntity.Student;
 import com.hms.hms.User.UserRepository.StudentRepository;
 import com.hms.hms.User.UserService.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.stream.Collectors;
 @Service
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
+    private PasswordEncoder passwordEncoder;
+    StudentMapper studentMapper=new StudentMapper();
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -20,22 +23,22 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentDto createStudent(StudentDto studentDto) {
-        Student student= StudentMapper.mapDtoToStudent(studentDto);
+        Student student= studentMapper.mapDtoToStudent(studentDto);
         Student savedStudent=studentRepository.save(student);
-        return StudentMapper.mapStudentToDto(savedStudent);
+        return studentMapper.mapStudentToDto(savedStudent);
     }
 
     @Override
     public StudentDto getStudentById(String student_id) {
         Student student=studentRepository.findById(student_id)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+student_id));
-        return StudentMapper.mapStudentToDto(student);
+        return studentMapper.mapStudentToDto(student);
     }
 
     @Override
     public List<StudentDto> getAllStudents() {
         List<Student> student=studentRepository.findAll();
-        return student.stream().map((student1 -> StudentMapper.mapStudentToDto(student1))).collect(Collectors.toList());
+        return student.stream().map((studentMapper::mapStudentToDto)).collect(Collectors.toList());
     }
 
     @Override
@@ -50,11 +53,11 @@ public class StudentServiceImpl implements StudentService {
         student.setNationality(updatedStudent.getNationality());
         student.setRole(updatedStudent.getRole());
         student.setContactNo(updatedStudent.getContactNo());
-        student.setPassword(updatedStudent.getPassword());
+        student.setPassword(updatedStudent.getPassword(),passwordEncoder);
 
         Student updatedStudentObj=studentRepository.save(student);
 
-        return StudentMapper.mapStudentToDto(updatedStudentObj);
+        return studentMapper.mapStudentToDto(updatedStudentObj);
     }
 
     @Override

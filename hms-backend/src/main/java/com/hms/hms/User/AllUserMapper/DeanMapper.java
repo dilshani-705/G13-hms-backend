@@ -2,9 +2,11 @@ package com.hms.hms.User.AllUserMapper;
 
 import com.hms.hms.User.UserDataTransferObject.DeanDto;
 import com.hms.hms.User.UserEntity.Dean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class DeanMapper {
-    public static DeanDto mapDeanToDto(Dean dean) {
+    private PasswordEncoder passwordEncoder;
+    public DeanDto mapDeanToDto(Dean dean) {
         return  new DeanDto(
                 dean.getUserID(),
                 dean.getFullName(),
@@ -15,12 +17,12 @@ public class DeanMapper {
                 dean.getNationality(),
                 dean.getRole(),
                 dean.getContactNo(),
-                dean.getPassword()
+               this.passwordEncoder.encode(dean.getPassword())
 
         );
     }
 
-    public static Dean mapDtoToDean(DeanDto deanDto) {
+    public Dean mapDtoToDean(DeanDto deanDto) {
         return new Dean(
                 deanDto.getUserID(),
                 deanDto.getFullName(),
@@ -31,7 +33,7 @@ public class DeanMapper {
                 deanDto.getNationality(),
                 deanDto.getRole(),
                 deanDto.getContactNo(),
-                deanDto.getPassword()
+                this.passwordEncoder.encode(deanDto.getPassword())
 
         );
     }

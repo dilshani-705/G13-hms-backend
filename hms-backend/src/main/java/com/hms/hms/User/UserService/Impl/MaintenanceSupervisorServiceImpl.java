@@ -6,6 +6,7 @@ import com.hms.hms.User.UserEntity.MaintenanceSupervisor;
 import com.hms.hms.User.UserRepository.MaintenanceSupervisorRepository;
 import com.hms.hms.User.UserService.MaintenanceSupervisorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorService {
     private final MaintenanceSupervisorRepository maintenanceSupervisorRepository;
+
+    private PasswordEncoder passwordEncoder;
+    MaintenanceSupervisorMapper maintenanceSupervisorMapper=new MaintenanceSupervisorMapper();
 @Autowired
     public MaintenanceSupervisorServiceImpl(MaintenanceSupervisorRepository maintenanceSupervisorRepository) {
         this.maintenanceSupervisorRepository = maintenanceSupervisorRepository;
@@ -20,23 +24,23 @@ public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorSe
 
     @Override
     public MaintenanceSupervisorDto createMaintenanceSupervisor(MaintenanceSupervisorDto maintenanceSupervisorDto) {
-        MaintenanceSupervisor maintenanceSupervisor= MaintenanceSupervisorMapper.mapDtoToMaintenanceSupervisor(maintenanceSupervisorDto);
+        MaintenanceSupervisor maintenanceSupervisor= maintenanceSupervisorMapper.mapDtoToMaintenanceSupervisor(maintenanceSupervisorDto);
         MaintenanceSupervisor savedMaintenanceSupervisor=maintenanceSupervisorRepository.save(maintenanceSupervisor);
-        return MaintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(savedMaintenanceSupervisor);
+        return maintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(savedMaintenanceSupervisor);
     }
 
     @Override
     public MaintenanceSupervisorDto getMaintenanceSupervisorById(String maintenanceSupervisor_id) {
         MaintenanceSupervisor maintenanceSupervisor=maintenanceSupervisorRepository.findById(maintenanceSupervisor_id)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+maintenanceSupervisor_id));
-        return MaintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(maintenanceSupervisor);
+        return maintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(maintenanceSupervisor);
 
     }
 
     @Override
     public List<MaintenanceSupervisorDto> getAllMaintenanceSupervisors() {
         List<MaintenanceSupervisor> maintenanceSupervisor=maintenanceSupervisorRepository.findAll();
-        return maintenanceSupervisor.stream().map((maintenanceSupervisor1 -> MaintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(maintenanceSupervisor1))).collect(Collectors.toList());
+        return maintenanceSupervisor.stream().map(maintenanceSupervisorMapper::mapMaintenanceSupervisorToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -51,11 +55,11 @@ public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorSe
         maintenanceSupervisor.setNationality(updatedMaintenanceSupervisor.getNationality());
         maintenanceSupervisor.setRole(updatedMaintenanceSupervisor.getRole());
         maintenanceSupervisor.setContactNo(updatedMaintenanceSupervisor.getContactNo());
-        maintenanceSupervisor.setPassword(updatedMaintenanceSupervisor.getPassword());
+        maintenanceSupervisor.setPassword(updatedMaintenanceSupervisor.getPassword(),passwordEncoder);
 
             MaintenanceSupervisor updatedMaintenanceSupervisorObj=maintenanceSupervisorRepository.save(maintenanceSupervisor);
 
-        return MaintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(updatedMaintenanceSupervisorObj);
+        return maintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(updatedMaintenanceSupervisorObj);
     }
 
     @Override

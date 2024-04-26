@@ -2,10 +2,17 @@ package com.hms.hms.User.AllUserMapper;
 
 import com.hms.hms.User.UserDataTransferObject.AdminDto;
 import com.hms.hms.User.UserEntity.Admin;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class AdminMapper {
-    public static AdminDto mapAdminToDto(Admin admin) {
-        return  new AdminDto(
+    private PasswordEncoder passwordEncoder;
+
+    public AdminMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public  AdminDto mapAdminToDto(Admin admin) {
+        return new AdminDto(
                 admin.getUserID(),
                 admin.getFullName(),
                 admin.getAddress(),
@@ -15,11 +22,11 @@ public class AdminMapper {
                 admin.getNationality(),
                 admin.getRole(),
                 admin.getContactNo(),
-                admin.getPassword()
+                this.passwordEncoder.encode(admin.getPassword())
         );
     }
 
-    public static Admin mapDtoToAdmin(AdminDto adminDto) {
+    public  Admin mapDtoToAdmin(AdminDto adminDto) {
         return new Admin(
                 adminDto.getUserID(),
                 adminDto.getFullName(),
@@ -30,7 +37,7 @@ public class AdminMapper {
                 adminDto.getNationality(),
                 adminDto.getRole(),
                 adminDto.getContactNo(),
-                adminDto.getPassword()
+               this.passwordEncoder.encode(adminDto.getPassword())
 
         );
     }

@@ -6,6 +6,7 @@ import com.hms.hms.User.UserEntity.Warden;
 import com.hms.hms.User.UserRepository.WardenRepository;
 import com.hms.hms.User.UserService.WardenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class WardenServiceImpl implements WardenService {
     private final WardenRepository wardenRepository;
+    private PasswordEncoder passwordEncoder;
+
+    WardenMapper wardenMapper=new WardenMapper();
     @Autowired
     public WardenServiceImpl(WardenRepository wardenRepository) {
         this.wardenRepository = wardenRepository;
@@ -20,22 +24,22 @@ public class WardenServiceImpl implements WardenService {
 
     @Override
     public WardenDto createWarden(WardenDto wardenDto) {
-        Warden warden= WardenMapper.mapDtoToWarden(wardenDto);
+        Warden warden= wardenMapper.mapDtoToWarden(wardenDto);
         Warden savedWarden=wardenRepository.save(warden);
-        return WardenMapper.mapWardenToDto(savedWarden);
+        return wardenMapper.mapWardenToDto(savedWarden);
     }
 
     @Override
     public WardenDto getWardenById(String warden_id) {
         Warden warden=wardenRepository.findById(warden_id)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+warden_id));
-        return WardenMapper.mapWardenToDto(warden);
+        return wardenMapper.mapWardenToDto(warden);
     }
 
     @Override
     public List<WardenDto> getAllWardens() {
         List<Warden> warden=wardenRepository.findAll();
-        return warden.stream().map((warden1 -> WardenMapper.mapWardenToDto(warden1))).collect(Collectors.toList());
+        return warden.stream().map(wardenMapper::mapWardenToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -50,11 +54,11 @@ public class WardenServiceImpl implements WardenService {
         warden.setNationality(updatedWarden.getNationality());
         warden.setRole(updatedWarden.getRole());
         warden.setContactNo(updatedWarden.getContactNo());
-        warden.setPassword(updatedWarden.getPassword());
+        warden.setPassword(updatedWarden.getPassword(),passwordEncoder);
 
         Warden updatedWardenObj=wardenRepository.save(warden);
 
-        return WardenMapper.mapWardenToDto(updatedWardenObj);
+        return wardenMapper.mapWardenToDto(updatedWardenObj);
     }
 
     @Override

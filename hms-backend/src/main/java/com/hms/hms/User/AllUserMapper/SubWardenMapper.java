@@ -2,9 +2,12 @@ package com.hms.hms.User.AllUserMapper;
 
 import com.hms.hms.User.UserDataTransferObject.SubWardenDto;
 import com.hms.hms.User.UserEntity.SubWarden;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class SubWardenMapper{
-    public static SubWardenDto mapSubWardenToDto(SubWarden subwarden){
+    private PasswordEncoder passwordEncoder;
+
+    public SubWardenDto mapSubWardenToDto(SubWarden subwarden){
         return new SubWardenDto(
                 subwarden.getUserID(),
                 subwarden.getFullName(),
@@ -15,12 +18,12 @@ public class SubWardenMapper{
                 subwarden.getNationality(),
                 subwarden.getRole(),
                 subwarden.getContactNo(),
-                subwarden.getPassword(),
+                this.passwordEncoder.encode(subwarden.getPassword()),
                 subwarden.getDateOfEmployment()
 
         );
     }
-    public static SubWarden mapDtoToSubWarden(SubWardenDto subWardenDto){
+    public SubWarden mapDtoToSubWarden(SubWardenDto subWardenDto){
         return  new SubWarden(
                 subWardenDto.getUserID(),
                 subWardenDto.getFullName(),
@@ -31,7 +34,7 @@ public class SubWardenMapper{
                 subWardenDto.getNationality(),
                 subWardenDto.getRole(),
                 subWardenDto.getContactNo(),
-                subWardenDto.getPassword(),
+                this.passwordEncoder.encode(subWardenDto.getPassword()),
                 subWardenDto.getDateOfEmployment()
 
         );
