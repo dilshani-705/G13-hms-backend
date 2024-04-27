@@ -7,6 +7,7 @@ import com.hms.hms.User.UserDataTransferObject.UserDto;
 import com.hms.hms.User.UserEntity.User;
 import com.hms.hms.User.UserRepository.UsersRepo;
 import com.hms.hms.User.UserService.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class UsersServiceImpl implements UsersService {
     private final UsersRepo usersRepo;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public UsersServiceImpl(UsersRepo usersRepo, PasswordEncoder passwordEncoder) {
         this.usersRepo = usersRepo;
@@ -26,8 +27,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public  List<UserDto> getAllUsers() {
-        List<User> users=usersRepo.findAll();
+
         UserMapper userMapper=new UserMapper(passwordEncoder);
+        List<User> users=usersRepo.findAll();
         return users.stream().map(userMapper::mapUserToDto).collect(Collectors.toList());
     }
 
@@ -38,19 +40,29 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public LoginMessage login(LoginDto loginDto) {
-        String msg="";
-        User user=usersRepo.findUserByUserID(loginDto.getUserID());
-        if (user==null){
-            msg="User not found";
+        String msg = "";
+        User user1 = usersRepo.findUserByUserID(loginDto.getUserID());
+        if (user1 != null) {
+            String password = loginDto.getPassword();
+            String encodedPassword = user1.getPassword();
+            Boolean isPasswordMatch = passwordEncoder.matches(password, encodedPassword);
+            if (isPasswordMatch) {
+                Optional<User> user = usersRepo.findUserByUserIDAndPassword(loginDto.getUserID(), encodedPassword);
+                if (user.isPresent()) {
+                    msg = "Login Successful";
+                    return new LoginMessage(msg, true);
+                } else {
+                    msg = "Login Failed";
+                    return new LoginMessage(msg, false);
+                }
+            } else {
+                msg = "Password is incorrect";
+                return new LoginMessage(msg, false);
+            }
+        } else {
+            msg = "User not found";
+            return new LoginMessage(msg, false);
         }
-        else if (passwordEncoder.matches(loginDto.getPassword(),user.getPassword())){
-            msg="Login successful";
-        }
-        else {
-            msg="Incorrect password";
-        }
-        return null;
     }
-
 
 }

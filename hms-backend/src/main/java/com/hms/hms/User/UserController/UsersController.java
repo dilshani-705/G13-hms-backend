@@ -6,6 +6,7 @@ import com.hms.hms.User.UserDataTransferObject.UserDto;
 import com.hms.hms.User.UserEntity.User;
 import com.hms.hms.User.UserService.UsersService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,14 +14,20 @@ import java.util.List;
 import java.util.Optional;
 
 
-@AllArgsConstructor
 @RestController
+@CrossOrigin
 @RequestMapping("/api/users")
 public class UsersController {
-    private UsersService usersService;
+    private final UsersService usersService;
+
+    public UsersController(UsersService usersService) {
+        this.usersService = usersService;
+    }
+
     @PostMapping("/login")
-    public LoginMessage login(@RequestBody LoginDto loginDto){
-        return usersService.login(loginDto);
+    public ResponseEntity<?> loginUser(@RequestBody LoginDto loginDto) {
+        LoginMessage loginMessage = usersService.login(loginDto);
+        return ResponseEntity.ok(loginMessage);
     }
 
     //See all users

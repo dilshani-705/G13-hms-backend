@@ -6,6 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class DeanMapper {
     private PasswordEncoder passwordEncoder;
+
+    public DeanMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public DeanDto mapDeanToDto(Dean dean) {
         return  new DeanDto(
                 dean.getUserID(),

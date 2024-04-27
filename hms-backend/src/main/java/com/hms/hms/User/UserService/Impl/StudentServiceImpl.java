@@ -15,10 +15,13 @@ import java.util.stream.Collectors;
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private PasswordEncoder passwordEncoder;
-    StudentMapper studentMapper=new StudentMapper();
+    private final StudentMapper studentMapper;
+
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, PasswordEncoder passwordEncoder, StudentMapper studentMapper) {
         this.studentRepository = studentRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.studentMapper = studentMapper;
     }
 
     @Override

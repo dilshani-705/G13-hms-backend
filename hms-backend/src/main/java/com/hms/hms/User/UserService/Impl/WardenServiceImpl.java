@@ -16,10 +16,12 @@ public class WardenServiceImpl implements WardenService {
     private final WardenRepository wardenRepository;
     private PasswordEncoder passwordEncoder;
 
-    WardenMapper wardenMapper=new WardenMapper();
+    private final WardenMapper wardenMapper;
     @Autowired
-    public WardenServiceImpl(WardenRepository wardenRepository) {
+    public WardenServiceImpl(WardenRepository wardenRepository, PasswordEncoder passwordEncoder, WardenMapper wardenMapper) {
         this.wardenRepository = wardenRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.wardenMapper = wardenMapper;
     }
 
     @Override

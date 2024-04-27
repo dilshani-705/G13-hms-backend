@@ -6,6 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class MaintenanceSupervisorMapper {
     private PasswordEncoder passwordEncoder;
+
+    public MaintenanceSupervisorMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public MaintenanceSupervisorDto mapMaintenanceSupervisorToDto(MaintenanceSupervisor maintenanceSupervisor) {
         return  new MaintenanceSupervisorDto(
                 maintenanceSupervisor.getUserID(),

@@ -5,6 +5,7 @@ import com.hms.hms.User.UserDataTransferObject.AdminDto;
 import com.hms.hms.User.UserEntity.Admin;
 import com.hms.hms.User.UserRepository.AdminRepository;
 import com.hms.hms.User.UserService.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +15,17 @@ import java.util.stream.Collectors;
 public class AdminServiceImpl implements AdminService {
      private final AdminRepository adminRepository;
     private PasswordEncoder passwordEncoder;
-
-    public AdminServiceImpl(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
+    private final AdminMapper adminMapper;
+    @Autowired
+    public AdminServiceImpl(AdminRepository adminRepository, PasswordEncoder passwordEncoder, AdminMapper adminMapper) {
         this.adminRepository = adminRepository;
          this.passwordEncoder = passwordEncoder;
-     }
+        this.adminMapper = adminMapper;
+    }
 
     @Override
     public AdminDto createAdmin(AdminDto adminDto) {
-        AdminMapper adminMapper=new AdminMapper(passwordEncoder);
+
         Admin admin= adminMapper.mapDtoToAdmin(adminDto);
         Admin savedAdmin=adminRepository.save(admin);
         return adminMapper.mapAdminToDto(savedAdmin);
@@ -30,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminDto getAdminById(String admin_id) {
-        AdminMapper adminMapper=new AdminMapper(passwordEncoder);
+
         Admin admin=adminRepository.findById(admin_id)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+admin_id));
         return adminMapper.mapAdminToDto(admin);
@@ -39,7 +42,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<AdminDto> getAllAdmins() {
         List<Admin> admins=adminRepository.findAll();
-        AdminMapper adminMapper=new AdminMapper(passwordEncoder);
         return admins.stream().map(adminMapper::mapAdminToDto).collect(Collectors.toList());
     }
 

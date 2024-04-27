@@ -16,11 +16,13 @@ public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorSe
     private final MaintenanceSupervisorRepository maintenanceSupervisorRepository;
 
     private PasswordEncoder passwordEncoder;
-    MaintenanceSupervisorMapper maintenanceSupervisorMapper=new MaintenanceSupervisorMapper();
+    private final MaintenanceSupervisorMapper maintenanceSupervisorMapper;
 @Autowired
-    public MaintenanceSupervisorServiceImpl(MaintenanceSupervisorRepository maintenanceSupervisorRepository) {
+    public MaintenanceSupervisorServiceImpl(MaintenanceSupervisorRepository maintenanceSupervisorRepository, PasswordEncoder passwordEncoder, MaintenanceSupervisorMapper maintenanceSupervisorMapper) {
         this.maintenanceSupervisorRepository = maintenanceSupervisorRepository;
-    }
+    this.passwordEncoder = passwordEncoder;
+    this.maintenanceSupervisorMapper = maintenanceSupervisorMapper;
+}
 
     @Override
     public MaintenanceSupervisorDto createMaintenanceSupervisor(MaintenanceSupervisorDto maintenanceSupervisorDto) {

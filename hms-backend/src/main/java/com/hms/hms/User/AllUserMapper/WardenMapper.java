@@ -6,6 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class WardenMapper{
     private PasswordEncoder passwordEncoder;
+
+    public WardenMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public WardenDto mapWardenToDto(Warden warden){
         return new WardenDto(
                 warden.getUserID(),

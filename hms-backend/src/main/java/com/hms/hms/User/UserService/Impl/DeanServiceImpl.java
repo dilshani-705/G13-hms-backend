@@ -15,14 +15,16 @@ import java.util.stream.Collectors;
 public class DeanServiceImpl implements DeanService {
     private final DeanRepository deanRepository;
     private PasswordEncoder passwordEncoder;
+    private final DeanMapper deanMapper;
     @Autowired
-    public DeanServiceImpl(DeanRepository deanRepository) {
+    public DeanServiceImpl(DeanRepository deanRepository, PasswordEncoder passwordEncoder, DeanMapper deanMapper) {
         this.deanRepository = deanRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.deanMapper = deanMapper;
     }
 
     @Override
     public DeanDto createDean(DeanDto deanDto) {
-        DeanMapper deanMapper=new DeanMapper();
         Dean dean= deanMapper.mapDtoToDean(deanDto);
         Dean savedDean=deanRepository.save(dean);
         return deanMapper.mapDeanToDto(savedDean);
@@ -30,7 +32,6 @@ public class DeanServiceImpl implements DeanService {
 
     @Override
     public DeanDto getDeanById(String dean_id) {
-        DeanMapper deanMapper=new DeanMapper();
         Dean dean=deanRepository.findById(dean_id)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+dean_id));
         return deanMapper.mapDeanToDto(dean);
@@ -38,14 +39,13 @@ public class DeanServiceImpl implements DeanService {
 
     @Override
     public List<DeanDto> getAllDeans() {
-        DeanMapper deanMapper=new DeanMapper();
-        List<Dean> dean=deanRepository.findAll();
-        return dean.stream().map((dean1 -> deanMapper.mapDeanToDto(dean1))).collect(Collectors.toList());
+        List<Dean> deans=deanRepository.findAll();
+        return deans.stream().map(deanMapper::mapDeanToDto).collect(Collectors.toList());
     }
 
     @Override
     public DeanDto updatedDean(String userId, DeanDto updatedDean) {
-        DeanMapper deanMapper=new DeanMapper();
+
         Dean dean=deanRepository.findById(userId)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
         dean.setFullName(updatedDean.getFullName());

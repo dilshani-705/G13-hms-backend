@@ -6,6 +6,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class StudentMapper {
     private PasswordEncoder passwordEncoder;
+    public StudentMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 public StudentDto mapStudentToDto(Student student) {
         return new StudentDto(
         student.getUserID(),
