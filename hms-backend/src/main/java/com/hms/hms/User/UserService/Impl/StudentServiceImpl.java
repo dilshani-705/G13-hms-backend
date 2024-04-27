@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
         student.setNationality(updatedStudent.getNationality());
         student.setRole(updatedStudent.getRole());
         student.setContactNo(updatedStudent.getContactNo());
-        student.setPassword(updatedStudent.getPassword(),passwordEncoder);
+        student.setPassword(updatedStudent.getPassword(), passwordEncoder);
 
         Student updatedStudentObj=studentRepository.save(student);
 

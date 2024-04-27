@@ -55,7 +55,7 @@ public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorSe
         maintenanceSupervisor.setNationality(updatedMaintenanceSupervisor.getNationality());
         maintenanceSupervisor.setRole(updatedMaintenanceSupervisor.getRole());
         maintenanceSupervisor.setContactNo(updatedMaintenanceSupervisor.getContactNo());
-        maintenanceSupervisor.setPassword(updatedMaintenanceSupervisor.getPassword(),passwordEncoder);
+        maintenanceSupervisor.setPassword(updatedMaintenanceSupervisor.getPassword(), passwordEncoder);
 
             MaintenanceSupervisor updatedMaintenanceSupervisorObj=maintenanceSupervisorRepository.save(maintenanceSupervisor);
 

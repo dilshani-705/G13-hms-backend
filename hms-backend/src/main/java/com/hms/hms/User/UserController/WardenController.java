@@ -15,7 +15,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/wardens")
+@RequestMapping("/api/wardens") 
 public class WardenController {
     private WardenService wardenService;
     //Add a warden
@@ -34,6 +34,6 @@ public class WardenController {
     @GetMapping("/{wardenId}")
     public ResponseEntity<WardenDto>getWardenById(@PathVariable("wardenId") String warden_id){
         WardenDto wardenDto=wardenService.getWardenById(warden_id);
-        return ResponseEntity.ok(wardenDto);
+        return ResponseEntity.ok(wardenDto );
     }
 }

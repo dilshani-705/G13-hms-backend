@@ -55,7 +55,7 @@ public class SubWardenServiceImpl implements SubWardenService {
         subWarden.setNationality(updatedSubAWarden.getNationality());
         subWarden.setRole(updatedSubAWarden.getRole());
         subWarden.setContactNo(updatedSubAWarden.getContactNo());
-        subWarden.setPassword(updatedSubAWarden.getPassword(),passwordEncoder);
+        subWarden.setPassword(updatedSubAWarden.getPassword(), passwordEncoder);
 
         SubWarden updatedSubWardenObj=subWardenRepository.save(subWarden);
 

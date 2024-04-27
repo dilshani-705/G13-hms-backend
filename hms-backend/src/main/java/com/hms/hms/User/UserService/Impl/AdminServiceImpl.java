@@ -5,7 +5,6 @@ import com.hms.hms.User.UserDataTransferObject.AdminDto;
 import com.hms.hms.User.UserEntity.Admin;
 import com.hms.hms.User.UserRepository.AdminRepository;
 import com.hms.hms.User.UserService.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +58,7 @@ public class AdminServiceImpl implements AdminService {
         admin.setNationality(updatedAdmin.getNationality());
         admin.setRole(updatedAdmin.getRole());
         admin.setContactNo(updatedAdmin.getContactNo());
-        admin.setPassword(updatedAdmin.getPassword(),passwordEncoder);
+        admin.setPassword(updatedAdmin.getPassword(), passwordEncoder);
         return updatedAdmin;
     }
 

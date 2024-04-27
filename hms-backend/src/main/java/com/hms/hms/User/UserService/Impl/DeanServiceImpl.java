@@ -56,7 +56,7 @@ public class DeanServiceImpl implements DeanService {
         dean.setNationality(updatedDean.getNationality());
         dean.setRole(updatedDean.getRole());
         dean.setContactNo(updatedDean.getContactNo());
-        dean.setPassword(updatedDean.getPassword(),passwordEncoder);
+        dean.setPassword(updatedDean.getPassword(), passwordEncoder);
 
         Dean updatedDeanObj=deanRepository.save(dean);
 
