@@ -14,12 +14,13 @@ import java.util.stream.Collectors;
 @Service
 public class SubWardenServiceImpl implements SubWardenService {
     private final SubWardenRepository subWardenRepository;
-    private PasswordEncoder passwordEncoder;
-
-    SubWardenMapper subWardenMapper=new SubWardenMapper();
+     private final PasswordEncoder passwordEncoder;
+    private final SubWardenMapper subWardenMapper;
     @Autowired
-    public SubWardenServiceImpl(SubWardenRepository subWardenRepository) {
+    public SubWardenServiceImpl(SubWardenRepository subWardenRepository, PasswordEncoder passwordEncoder, SubWardenMapper subWardenMapper) {
         this.subWardenRepository = subWardenRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.subWardenMapper = subWardenMapper;
     }
 
     @Override

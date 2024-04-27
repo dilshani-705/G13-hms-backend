@@ -7,6 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SubWardenMapper{
     private PasswordEncoder passwordEncoder;
 
+    public SubWardenMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public SubWardenDto mapSubWardenToDto(SubWarden subwarden){
         return new SubWardenDto(
                 subwarden.getUserID(),
