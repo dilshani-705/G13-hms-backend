@@ -33,7 +33,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminDto getAdminById(String admin_id) {
-
         Admin admin=adminRepository.findById(admin_id)
                 .orElseThrow(()->new RuntimeException("User not found with ID: "+admin_id));
         return adminMapper.mapAdminToDto(admin);
@@ -47,21 +46,23 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public AdminDto updatedAdmin(String userId, AdminDto updatedAdmin) {
-        Admin admin=adminRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public AdminDto updatedAdmin(String admin_id, AdminDto updatedAdmin) {
+        Admin admin=adminRepository.findById(admin_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+admin_id));
         admin.setFullName(updatedAdmin.getFullName());
         admin.setAddress(updatedAdmin.getAddress());
         admin.setDob(updatedAdmin.getDob());
         admin.setContactNo(updatedAdmin.getContactNo());
-        admin.setDob(updatedAdmin.getDob());
         admin.setEmail(updatedAdmin.getEmail());
         admin.setGender(updatedAdmin.getGender());
         admin.setNationality(updatedAdmin.getNationality());
         admin.setRole(updatedAdmin.getRole());
-        admin.setContactNo(updatedAdmin.getContactNo());
-        admin.setPassword(updatedAdmin.getPassword(), passwordEncoder);
-        return updatedAdmin;
+
+        if (updatedAdmin.getPassword() != null){
+            admin.setPassword(updatedAdmin.getPassword(), passwordEncoder);
+        }
+        adminRepository.save(admin);
+        return adminMapper.mapAdminToDto(admin);
     }
 
 

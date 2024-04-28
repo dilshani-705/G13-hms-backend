@@ -36,4 +36,10 @@ public class WardenController {
         WardenDto wardenDto=wardenService.getWardenById(warden_id);
         return ResponseEntity.ok(wardenDto );
     }
+    //Update a warden
+    @PutMapping("/{wardenId}")
+    public ResponseEntity<WardenDto>updateWarden(@PathVariable("wardenId") String wardenId, @RequestBody WardenDto wardenDto){
+        WardenDto updatedWarden=wardenService.updatedWarden(wardenId, wardenDto);
+        return ResponseEntity.ok(updatedWarden);
+    }
 }

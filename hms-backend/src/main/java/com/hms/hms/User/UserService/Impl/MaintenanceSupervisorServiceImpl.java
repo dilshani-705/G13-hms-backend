@@ -46,9 +46,9 @@ public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorSe
     }
 
     @Override
-    public MaintenanceSupervisorDto updatedMaintenanceSupervisor(String userId, MaintenanceSupervisorDto updatedMaintenanceSupervisor) {
-        MaintenanceSupervisor maintenanceSupervisor=maintenanceSupervisorRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public MaintenanceSupervisorDto updatedMaintenanceSupervisor(String maintenance_supervisor_id, MaintenanceSupervisorDto updatedMaintenanceSupervisor) {
+        MaintenanceSupervisor maintenanceSupervisor=maintenanceSupervisorRepository.findById(maintenance_supervisor_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+maintenance_supervisor_id));
         maintenanceSupervisor.setFullName(updatedMaintenanceSupervisor.getFullName());
         maintenanceSupervisor.setAddress(updatedMaintenanceSupervisor.getAddress());
         maintenanceSupervisor.setDob(updatedMaintenanceSupervisor.getDob());
@@ -59,9 +59,10 @@ public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorSe
         maintenanceSupervisor.setContactNo(updatedMaintenanceSupervisor.getContactNo());
         maintenanceSupervisor.setPassword(updatedMaintenanceSupervisor.getPassword(), passwordEncoder);
 
-            MaintenanceSupervisor updatedMaintenanceSupervisorObj=maintenanceSupervisorRepository.save(maintenanceSupervisor);
-
-        return maintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(updatedMaintenanceSupervisorObj);
+            if(updatedMaintenanceSupervisor.getPassword()!=null)
+                maintenanceSupervisor.setPassword(updatedMaintenanceSupervisor.getPassword(), passwordEncoder);
+            maintenanceSupervisorRepository.save(maintenanceSupervisor);
+        return maintenanceSupervisorMapper.mapMaintenanceSupervisorToDto(maintenanceSupervisor);
     }
 
     @Override

@@ -34,4 +34,10 @@ public class SubWardenController {
         SubWardenDto subWardenDto=subWardenService.getSubWardenById(subWarden_id);
         return ResponseEntity.ok(subWardenDto);
     }
+    //update a sub warden
+    @PutMapping("/{subWardenId}")
+    public ResponseEntity<SubWardenDto>updateSubWarden(@PathVariable("subWardenId") String subWarden_id, @RequestBody SubWardenDto updatedSubAWarden){
+        SubWardenDto subWardenDto=subWardenService.updatedSubWarden(subWarden_id, updatedSubAWarden);
+        return ResponseEntity.ok(subWardenDto);
+    }
 }

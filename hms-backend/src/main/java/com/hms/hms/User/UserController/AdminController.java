@@ -38,7 +38,7 @@ public class AdminController {
         List<AdminDto>admin=adminService.getAllAdmins();
         return ResponseEntity.ok(admin);
     }
-    //Update ad admin
+    //Update an admin
     @PutMapping("{adminId}")
     public ResponseEntity<AdminDto>updateAdmin(@PathVariable("adminId")String admin_id,@RequestBody AdminDto updatedAdmin){
         AdminDto adminDto=adminService.updatedAdmin(admin_id,updatedAdmin);

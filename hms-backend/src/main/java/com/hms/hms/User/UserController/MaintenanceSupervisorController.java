@@ -35,4 +35,10 @@ public class MaintenanceSupervisorController {
         MaintenanceSupervisorDto maintenanceSupervisorDto=maintenanceSupervisorService.getMaintenanceSupervisorById(maintenanceSupervisor_id);
         return ResponseEntity.ok(maintenanceSupervisorDto);
     }
+    //Update an maintenance supervisors
+    @PutMapping("/{maintenanceSupervisorId}")
+    public ResponseEntity<MaintenanceSupervisorDto>updateMaintenanceSupervisor(@PathVariable("maintenanceSupervisorId") String maintenanceSupervisor_id, @RequestBody MaintenanceSupervisorDto updatedMaintenanceSupervisor){
+        MaintenanceSupervisorDto maintenanceSupervisorDto=maintenanceSupervisorService.updatedMaintenanceSupervisor(maintenanceSupervisor_id, updatedMaintenanceSupervisor);
+        return ResponseEntity.ok(maintenanceSupervisorDto);
+    }
 }

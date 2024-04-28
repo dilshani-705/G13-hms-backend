@@ -22,7 +22,7 @@ public class UserMapper {
                 user.getNationality(),
                 user.getRole(),
                 user.getContactNo(),
-                this.passwordEncoder.encode(user.getPassword())
+                user.getPassword()!=null ? this.passwordEncoder.encode(user.getPassword()) : null
         );
     }
 
@@ -37,7 +37,7 @@ public class UserMapper {
                 userDto.getNationality(),
                 userDto.getRole(),
                 userDto.getContactNo(),
-                this.passwordEncoder.encode(userDto.getPassword())
+                userDto.getPassword()!=null ? this.passwordEncoder.encode(userDto.getPassword()) : null
         );
     }
 }

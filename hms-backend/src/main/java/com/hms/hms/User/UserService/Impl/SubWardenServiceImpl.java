@@ -44,9 +44,9 @@ public class SubWardenServiceImpl implements SubWardenService {
     }
 
     @Override
-    public SubWardenDto updatedSubWarden(String userId, SubWardenDto updatedSubAWarden) {
-        SubWarden subWarden=subWardenRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public SubWardenDto updatedSubWarden(String subWarden_id, SubWardenDto updatedSubAWarden) {
+        SubWarden subWarden=subWardenRepository.findById(subWarden_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+subWarden_id));
         subWarden.setFullName(updatedSubAWarden.getFullName());
         subWarden.setAddress(updatedSubAWarden.getAddress());
         subWarden.setDob(updatedSubAWarden.getDob());
@@ -55,11 +55,13 @@ public class SubWardenServiceImpl implements SubWardenService {
         subWarden.setNationality(updatedSubAWarden.getNationality());
         subWarden.setRole(updatedSubAWarden.getRole());
         subWarden.setContactNo(updatedSubAWarden.getContactNo());
-        subWarden.setPassword(updatedSubAWarden.getPassword(), passwordEncoder);
+        subWarden.setDateOfEmployment(updatedSubAWarden.getDateOfEmployment());
 
-        SubWarden updatedSubWardenObj=subWardenRepository.save(subWarden);
+        if(updatedSubAWarden.getPassword()!=null)
+            subWarden.setPassword(updatedSubAWarden.getPassword(),passwordEncoder);
 
-        return subWardenMapper.mapSubWardenToDto(updatedSubWardenObj);
+        subWardenRepository.save(subWarden);
+        return subWardenMapper.mapSubWardenToDto(subWarden);
     }
 
     @Override

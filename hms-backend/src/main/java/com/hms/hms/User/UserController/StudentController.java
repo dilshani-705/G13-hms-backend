@@ -35,4 +35,10 @@ public class StudentController {
         StudentDto studentDto=studentService.getStudentById(student_id);
         return ResponseEntity.ok(studentDto);
     }
+    //Update a student
+    @PutMapping("/{studentId}")
+    public ResponseEntity<StudentDto>updateStudent(@PathVariable("studentId") String studentId, @RequestBody StudentDto updatedStudent){
+        StudentDto studentDto=studentService.updatedStudent(studentId,updatedStudent);
+        return ResponseEntity.ok(studentDto);
+    }
 }

@@ -44,10 +44,9 @@ public class DeanServiceImpl implements DeanService {
     }
 
     @Override
-    public DeanDto updatedDean(String userId, DeanDto updatedDean) {
-
-        Dean dean=deanRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public DeanDto updatedDean(String dean_id, DeanDto updatedDean) {
+        Dean dean=deanRepository.findById(dean_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+dean_id));
         dean.setFullName(updatedDean.getFullName());
         dean.setAddress(updatedDean.getAddress());
         dean.setDob(updatedDean.getDob());
@@ -56,11 +55,12 @@ public class DeanServiceImpl implements DeanService {
         dean.setNationality(updatedDean.getNationality());
         dean.setRole(updatedDean.getRole());
         dean.setContactNo(updatedDean.getContactNo());
-        dean.setPassword(updatedDean.getPassword(), passwordEncoder);
+        if(updatedDean.getPassword()!=null){
+            dean.setPassword(updatedDean.getPassword(),passwordEncoder);
+        }
+        deanRepository.save(dean);
 
-        Dean updatedDeanObj=deanRepository.save(dean);
-
-        return deanMapper.mapDeanToDto(updatedDeanObj);
+        return deanMapper.mapDeanToDto(dean);
     }
 
     @Override

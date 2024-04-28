@@ -45,9 +45,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDto updatedStudent(String userId, StudentDto updatedStudent) {
-        Student student=studentRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public StudentDto updatedStudent(String student_id, StudentDto updatedStudent) {
+        Student student=studentRepository.findById(student_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+student_id));
         student.setFullName(updatedStudent.getFullName());
         student.setAddress(updatedStudent.getAddress());
         student.setDob(updatedStudent.getDob());
@@ -56,11 +56,18 @@ public class StudentServiceImpl implements StudentService {
         student.setNationality(updatedStudent.getNationality());
         student.setRole(updatedStudent.getRole());
         student.setContactNo(updatedStudent.getContactNo());
-        student.setPassword(updatedStudent.getPassword(), passwordEncoder);
+        student.setDepartment(updatedStudent.getDepartment());
+        student.setLevel(updatedStudent.getLevel());
+        student.setGuardianName(updatedStudent.getGuardianName());
+        student.setGuardianContactNo(updatedStudent.getGuardianContactNo());
+        student.setGuardianAddress(updatedStudent.getGuardianAddress());
+        student.setRelationship(updatedStudent.getRelationship());
+        if(updatedStudent.getPassword()!=null){
+            student.setPassword(updatedStudent.getPassword(),passwordEncoder);
+        }
 
-        Student updatedStudentObj=studentRepository.save(student);
-
-        return studentMapper.mapStudentToDto(updatedStudentObj);
+        studentRepository.save(student);
+        return studentMapper.mapStudentToDto(student);
     }
 
     @Override

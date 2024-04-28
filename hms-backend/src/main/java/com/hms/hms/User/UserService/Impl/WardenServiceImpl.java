@@ -56,11 +56,14 @@ public class WardenServiceImpl implements WardenService {
         warden.setNationality(updatedWarden.getNationality());
         warden.setRole(updatedWarden.getRole());
         warden.setContactNo(updatedWarden.getContactNo());
-        warden.setPassword(updatedWarden.getPassword(),passwordEncoder);
+        warden.setLecturePost(updatedWarden.getLecturePost());
+        if(updatedWarden.getPassword()!=null){
+            warden.setPassword(updatedWarden.getPassword(),passwordEncoder);
+        }
 
-        Warden updatedWardenObj=wardenRepository.save(warden);
+        wardenRepository.save(warden);
 
-        return wardenMapper.mapWardenToDto(updatedWardenObj);
+        return wardenMapper.mapWardenToDto(warden);
     }
 
     @Override

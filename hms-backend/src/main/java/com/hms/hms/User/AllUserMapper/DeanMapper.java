@@ -22,7 +22,7 @@ public class DeanMapper {
                 dean.getNationality(),
                 dean.getRole(),
                 dean.getContactNo(),
-               this.passwordEncoder.encode(dean.getPassword())
+               dean.getPassword()!=null ? this.passwordEncoder.encode(dean.getPassword()) : null
 
         );
     }
@@ -38,7 +38,7 @@ public class DeanMapper {
                 deanDto.getNationality(),
                 deanDto.getRole(),
                 deanDto.getContactNo(),
-                this.passwordEncoder.encode(deanDto.getPassword())
+                deanDto.getPassword()!=null ? this.passwordEncoder.encode(deanDto.getPassword()) : null
 
         );
     }

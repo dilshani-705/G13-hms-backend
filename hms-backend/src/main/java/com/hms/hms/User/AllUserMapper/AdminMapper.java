@@ -22,7 +22,7 @@ public class AdminMapper {
                 admin.getNationality(),
                 admin.getRole(),
                 admin.getContactNo(),
-                this.passwordEncoder.encode(admin.getPassword())
+                admin.getPassword()!= null ? this.passwordEncoder.encode(admin.getPassword()) : null
         );
     }
 
@@ -37,7 +37,7 @@ public class AdminMapper {
                 adminDto.getNationality(),
                 adminDto.getRole(),
                 adminDto.getContactNo(),
-               this.passwordEncoder.encode(adminDto.getPassword())
+               adminDto.getPassword()!= null ? this.passwordEncoder.encode(adminDto.getPassword()) : null
 
         );
     }

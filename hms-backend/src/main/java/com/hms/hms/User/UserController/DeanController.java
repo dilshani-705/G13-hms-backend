@@ -35,4 +35,10 @@ public class DeanController {
         List<DeanDto>dean=deanService.getAllDeans();
         return ResponseEntity.ok(dean);
     }
+    //Update a dean
+    @PutMapping("/{deanId}")
+    public ResponseEntity<DeanDto>updateDean(@PathVariable("deanId") String dean_Id, @RequestBody DeanDto updatedDean){
+        DeanDto deanDto=deanService.updatedDean(dean_Id,updatedDean);
+        return ResponseEntity.ok(deanDto);
+    }
 }
