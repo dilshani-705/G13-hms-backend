@@ -67,10 +67,10 @@ public class WardenServiceImpl implements WardenService {
     }
 
     @Override
-    public void deleteWarden(String userId) {
-        Warden warden=wardenRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public void deleteWarden(String warden_id) {
+        Warden warden=wardenRepository.findById(warden_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+warden_id));
 
-        wardenRepository.deleteById(userId);
+        wardenRepository.deleteById(warden_id);
     }
 }

@@ -71,10 +71,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteStudent(String userId) {
-        Student student=studentRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public void deleteStudent(String student_id) {
+        Student student=studentRepository.findById(student_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+student_id));
 
-        studentRepository.deleteById(userId);
+        studentRepository.deleteById(student_id);
     }
 }

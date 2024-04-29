@@ -41,4 +41,10 @@ public class MaintenanceSupervisorController {
         MaintenanceSupervisorDto maintenanceSupervisorDto=maintenanceSupervisorService.updatedMaintenanceSupervisor(maintenanceSupervisor_id, updatedMaintenanceSupervisor);
         return ResponseEntity.ok(maintenanceSupervisorDto);
     }
+    //Delete an maintenance supervisors
+    @DeleteMapping("/{maintenanceSupervisorId}")
+    public ResponseEntity<String>deleteMaintenanceSupervisor(@PathVariable("maintenanceSupervisorId") String maintenanceSupervisor_id){
+        maintenanceSupervisorService.deleteMaintenanceSupervisor(maintenanceSupervisor_id);
+        return  ResponseEntity.ok("Delete maintenance supervisor successfully");
+    }
 }

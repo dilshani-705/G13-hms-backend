@@ -65,10 +65,10 @@ public class SubWardenServiceImpl implements SubWardenService {
     }
 
     @Override
-    public void deleteSubWarden(String userId) {
-        SubWarden subWarden=subWardenRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public void deleteSubWarden(String subWarden_id) {
+        SubWarden subWarden=subWardenRepository.findById(subWarden_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+subWarden_id));
 
-        subWardenRepository.deleteById(userId);
+        subWardenRepository.deleteById(subWarden_id);
     }
 }

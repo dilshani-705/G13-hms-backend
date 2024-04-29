@@ -66,10 +66,10 @@ public class MaintenanceSupervisorServiceImpl implements MaintenanceSupervisorSe
     }
 
     @Override
-    public void deleteMaintenanceSupervisor(String userId) {
-        MaintenanceSupervisor maintenanceSupervisor=maintenanceSupervisorRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public void deleteMaintenanceSupervisor(String supervisor_id) {
+        MaintenanceSupervisor maintenanceSupervisor=maintenanceSupervisorRepository.findById(supervisor_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+supervisor_id));
 
-        maintenanceSupervisorRepository.deleteById(userId);
+        maintenanceSupervisorRepository.deleteById(supervisor_id);
     }
 }

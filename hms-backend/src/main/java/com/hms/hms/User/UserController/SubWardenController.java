@@ -40,4 +40,10 @@ public class SubWardenController {
         SubWardenDto subWardenDto=subWardenService.updatedSubWarden(subWarden_id, updatedSubAWarden);
         return ResponseEntity.ok(subWardenDto);
     }
+    //delete a sub warden
+    @DeleteMapping("/{subWardenId}")
+    public ResponseEntity<String>deleteSubWarden(@PathVariable("subWardenId") String subWarden_id){
+        subWardenService.deleteSubWarden(subWarden_id);
+        return ResponseEntity.ok("SubWarden deleted successfully");
+    }
 }

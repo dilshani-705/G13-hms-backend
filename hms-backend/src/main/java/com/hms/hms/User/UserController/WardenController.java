@@ -42,4 +42,10 @@ public class WardenController {
         WardenDto updatedWarden=wardenService.updatedWarden(wardenId, wardenDto);
         return ResponseEntity.ok(updatedWarden);
     }
+    //Delete a warden
+    @DeleteMapping("/{wardenId}")
+    public ResponseEntity<String>deleteWarden(@PathVariable("wardenId") String warden_id){
+        wardenService.deleteWarden(warden_id);
+        return  ResponseEntity.ok("Warden deleted successfully");
+    }
 }

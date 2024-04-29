@@ -64,10 +64,10 @@ public class DeanServiceImpl implements DeanService {
     }
 
     @Override
-    public void deleteDean(String userId) {
-        Dean dean=deanRepository.findById(userId)
-                .orElseThrow(()->new RuntimeException("User not found with ID: "+userId));
+    public void deleteDean(String dean_id) {
+        Dean dean=deanRepository.findById(dean_id)
+                .orElseThrow(()->new RuntimeException("User not found with ID: "+dean_id));
 
-        deanRepository.deleteById(userId);
+        deanRepository.deleteById(dean_id);
     }
 }

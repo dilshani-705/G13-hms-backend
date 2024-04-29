@@ -41,4 +41,10 @@ public class DeanController {
         DeanDto deanDto=deanService.updatedDean(dean_Id,updatedDean);
         return ResponseEntity.ok(deanDto);
     }
+    //Delete a dean
+    @DeleteMapping("/{deanId}")
+    public ResponseEntity<String>deleteDean(@PathVariable("deanId") String dean_Id){
+        deanService.deleteDean(dean_Id);
+        return ResponseEntity.ok("Dean deleted successfully");
+    }
 }
