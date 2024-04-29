@@ -13,16 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
+@AllArgsConstructor
 @RestController
-@CrossOrigin
 @RequestMapping("/api/users")
 public class UsersController {
     private final UsersService usersService;
-
-    public UsersController(UsersService usersService) {
-        this.usersService = usersService;
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginDto loginDto) {
@@ -40,6 +35,18 @@ public class UsersController {
     @GetMapping("/{userId}")
     public Optional<User> getUserById(@PathVariable("userId") String userId) {
         return usersService.getUserById(userId);
+    }
+    // Update user by ID
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable("userId") String user_id, @RequestBody UserDto userDto) {
+        UserDto updatedUser = usersService.updateUser(user_id, userDto);
+        return ResponseEntity.ok(updatedUser);
+    }
+    // Delete user by ID
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable("userId") String user_id) {
+        usersService.deleteUser(user_id);
+        return ResponseEntity.ok("User deleted successfully");
     }
 
 

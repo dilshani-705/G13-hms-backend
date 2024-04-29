@@ -37,5 +37,9 @@ public class SecurityConfig {
     public MaintenanceSupervisorMapper maintenanceSupervisorMapper(PasswordEncoder passwordEncoder){
         return new MaintenanceSupervisorMapper(passwordEncoder);
     }
+    @Bean
+    public  UserMapper userMapper(PasswordEncoder passwordEncoder){
+        return new UserMapper(passwordEncoder);
+    }
 
 }

@@ -13,4 +13,8 @@ public interface UsersService {
     Optional<User> getUserById(String userId);
 
     LoginMessage login(LoginDto loginDto);
+    //update user
+    UserDto updateUser(String userId,UserDto updatedUser);
+    //delete user
+    void deleteUser(String userId);
 }
