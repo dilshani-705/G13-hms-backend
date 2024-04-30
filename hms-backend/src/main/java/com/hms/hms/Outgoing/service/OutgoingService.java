@@ -7,4 +7,7 @@ import java.util.List;
 public interface OutgoingService {
     OutgoingDto createOutgoing(OutgoingDto outgoingDto);
     List<OutgoingDto> getAllOutgoing();
+
+    OutgoingDto updateOutgoing(Long outgoingId,OutgoingDto updateOutgoing);
+
 }
