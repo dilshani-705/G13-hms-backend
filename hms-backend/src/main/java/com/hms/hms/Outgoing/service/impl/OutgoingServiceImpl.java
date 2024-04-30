@@ -46,4 +46,12 @@ public class OutgoingServiceImpl implements OutgoingService {
 
         return OutgoingMapper.mapToOutgoingDto(updateOutgoingObj);
     }
+
+    @Override
+    public void deleteOutgoing(Long outgoingId) {
+        Outgoing outgoing = outgoingRepository.findById(outgoingId).orElseThrow(
+                () -> new ResourceNotFoundException("Outgoing is not exists with given id:" + outgoingId)
+        );
+        outgoingRepository.deleteById(outgoingId);
+    }
 }

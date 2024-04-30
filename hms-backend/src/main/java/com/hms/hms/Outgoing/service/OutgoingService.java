@@ -9,5 +9,6 @@ public interface OutgoingService {
     List<OutgoingDto> getAllOutgoing();
 
     OutgoingDto updateOutgoing(Long outgoingId,OutgoingDto updateOutgoing);
+    void deleteOutgoing (Long outgoingId);
 
 }
