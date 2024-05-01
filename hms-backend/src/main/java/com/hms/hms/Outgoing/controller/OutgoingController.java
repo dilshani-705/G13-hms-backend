@@ -39,6 +39,8 @@ public class OutgoingController {
         OutgoingDto outgoingDto = outgoingService.updateOutgoing(outgoingId, updateOutgoing);
         return ResponseEntity.ok(outgoingDto);
     }
+
+    // Delete Outgoing by Id
     @DeleteMapping(value = "{id}", produces = "application/json")
     public ResponseEntity<String> deleteOutgoing(@PathVariable("id") Long outgoingId) {
         outgoingService.deleteOutgoing(outgoingId);

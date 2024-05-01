@@ -47,6 +47,7 @@ public class OutgoingServiceImpl implements OutgoingService {
         return OutgoingMapper.mapToOutgoingDto(updateOutgoingObj);
     }
 
+    // Delete Outgoing by Id
     @Override
     public void deleteOutgoing(Long outgoingId) {
         Outgoing outgoing = outgoingRepository.findById(outgoingId).orElseThrow(
