@@ -24,9 +24,9 @@ public class Student extends User{
         this.guardianName = guardianName;
         this.guardianAddress = guardianAddress;
         this.guardianContactNo = guardianContactNo;
-        this.relationship = relationship;
-        this.hostelID= this.hostelID;
-        this.roomID= this.roomID;
+          this.relationship = relationship;
+        this.hostelID= hostelID;
+        this.roomID= roomID;
 
     }
 
