@@ -1,6 +1,7 @@
 package com.hms.hms.Service;
 
 import com.hms.hms.Dto.RoomMemberDto;
+import com.hms.hms.Entity.Asset;
 import com.hms.hms.Entity.RoomMember;
 import com.hms.hms.Repo.RoomMemberRepo;
 import com.hms.hms.Util.VarList;
@@ -16,6 +17,8 @@ import java.util.List;
 @Transactional
 public class RoomMemberService {
 
+    int dCount=0;
+    int count=0;
     @Autowired
     private RoomMemberRepo roomMemberRepo;
     @Autowired
@@ -32,16 +35,24 @@ public class RoomMemberService {
 
     // Method to save a new room member in the room member table
     public String addRoomMember(RoomMemberDto roomMemberDto){
-        // Check if room member ID already exists
+
+        count++;
+        // Check if member ID already exists
         if(roomMemberRepo.existsById(roomMemberDto.getMemberID())){
+            dCount++;
             // Return response indicating duplication
             return VarList.RSP_DUPLICATED;
         }else{
-            // Save new room member to repository
-            roomMemberRepo.save(modelMapper.map(roomMemberDto, RoomMember.class));
+            if (dCount == 0){
+                // Save new member to repository
+                roomMemberRepo.save(modelMapper.map(roomMemberDto, RoomMember.class));
+            }
+            
             // Return success response
             return VarList.RSP_SUCCESS;
         }
+
+
     }
 
     // Method to update a room member in the room member table
