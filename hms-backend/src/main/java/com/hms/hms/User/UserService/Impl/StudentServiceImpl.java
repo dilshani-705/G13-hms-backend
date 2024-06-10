@@ -62,6 +62,8 @@ public class StudentServiceImpl implements StudentService {
         student.setGuardianContactNo(updatedStudent.getGuardianContactNo());
         student.setGuardianAddress(updatedStudent.getGuardianAddress());
         student.setRelationship(updatedStudent.getRelationship());
+        student.setHostelID(updatedStudent.getHostelID());
+        student.setRoomID(updatedStudent.getRoomID());
         if(updatedStudent.getPassword()!=null){
             student.setPassword(updatedStudent.getPassword(),passwordEncoder);
         }

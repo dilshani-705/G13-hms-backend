@@ -17,14 +17,16 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "user_id")
 public class Student extends User{
 
-    public Student(String userID, String fullName, String address, Date dob, String email, String gender, String nationality, String role, String contactNo, String password, String department, String level, String guardianName, String guardianAddress, String guardianContactNo, String relationship) {
+    public Student(String userID, String fullName, String address, Date dob, String email, String gender, String nationality, String role, String contactNo, String password, String department, String level, String guardianName, String guardianAddress, String guardianContactNo, String relationship, String hostelID, String roomID) {
         super(userID, fullName, address, dob, email, gender, nationality, role, contactNo, password);
         this.department = department;
         this.level = level;
         this.guardianName = guardianName;
         this.guardianAddress = guardianAddress;
         this.guardianContactNo = guardianContactNo;
-        this.relationship = relationship;
+          this.relationship = relationship;
+        this.hostelID= hostelID;
+        this.roomID= roomID;
 
     }
 
@@ -40,5 +42,11 @@ public class Student extends User{
     private String guardianContactNo;
     @Column(name = "relationship")
     private String relationship;
+
+    @Column(name="hostel_id")
+    private String hostelID;
+
+    @Column(name="room_id")
+    private String roomID;
 
 }

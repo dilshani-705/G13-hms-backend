@@ -26,7 +26,9 @@ public StudentDto mapStudentToDto(Student student) {
         student.getGuardianName(),
         student.getGuardianAddress(),
         student.getGuardianContactNo(),
-        student.getRelationship()
+        student.getRelationship(),
+                student.getHostelID(),
+                student.getRoomID()
 
         );
         }
@@ -47,7 +49,9 @@ public StudentDto mapStudentToDto(Student student) {
                 studentDto.getGuardianName(),
                 studentDto.getGuardianAddress(),
                 studentDto.getGuardianContactNo(),
-                studentDto.getRelationship()
+                studentDto.getRelationship(),
+                studentDto.getHostelID(),
+                studentDto.getRoomID()
 
         );
     }
