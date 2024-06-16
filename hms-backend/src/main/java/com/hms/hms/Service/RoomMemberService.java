@@ -47,7 +47,9 @@ public class RoomMemberService {
                 // Save new member to repository
                 roomMemberRepo.save(modelMapper.map(roomMemberDto, RoomMember.class));
             }
-            
+            if (count == 4){
+                count = 0;
+            }
             // Return success response
             return VarList.RSP_SUCCESS;
         }
