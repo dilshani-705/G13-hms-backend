@@ -11,5 +11,5 @@ public class AssetDto {
     private int assetID;
     private String itemName;
     private String receiptDate;
-    private String allocatedLocation;
+    private int allocatedRoom;
 }

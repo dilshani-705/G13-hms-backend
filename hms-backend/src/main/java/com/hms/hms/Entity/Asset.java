@@ -22,6 +22,6 @@ public class Asset {
     @Column(name = "receipt_date")
     private String receiptDate;
 
-    @Column(name = "allocated_location")
-    private String allocatedLocation;
+    @Column(name = "allocated_room")
+    private int allocatedRoom;
 }

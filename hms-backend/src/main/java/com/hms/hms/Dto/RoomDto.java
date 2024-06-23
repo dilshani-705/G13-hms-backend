@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LocationDto {
-    private int locationID;
-    private String location;
+public class RoomDto {
+    private int roomID;
+    private int room;
+    private String hostel;
 }
