@@ -44,21 +44,29 @@ public class AssetItemService {
     }
 
     // Method to save a new Asset item in the Asset Item table
-    public String add(AssetItemDto assetItemDto){
-        assetItemRepo.save(modelMapper.map(assetItemDto, AssetItem.class));
+    public String add(AssetItemDto assetItemDto) {
+        // Map the DTO to the entity
+        AssetItem assetItem = modelMapper.map(assetItemDto, AssetItem.class);
+        // Save the entity
+        assetItemRepo.save(assetItem);
+        // Return success response
         return VarList.RSP_SUCCESS;
-
-        // Check if Asset Name already exists
-//        if(assetItemRepo.existsById(assetItemDto.getAssetItemID())){
-//            // Return response indicating duplication
-//            return VarList.RSP_DUPLICATED;
-//        }else{
-//            // Save new Asset to repository
-//            assetItemRepo.save(modelMapper.map(assetItemDto, AssetItem.class));
-//            // Return success response
-//            return VarList.RSP_SUCCESS;
-//        }
     }
+//    public String add(AssetItemDto assetItemDto){
+//        assetItemRepo.save(modelMapper.map(assetItemDto, AssetItem.class));
+//        return VarList.RSP_SUCCESS;
+//
+//        // Check if Asset Name already exists
+////        if(assetItemRepo.existsById(assetItemDto.getAssetItemID())){
+////            // Return response indicating duplication
+////            return VarList.RSP_DUPLICATED;
+////        }else{
+////            // Save new Asset to repository
+////            assetItemRepo.save(modelMapper.map(assetItemDto, AssetItem.class));
+////            // Return success response
+////            return VarList.RSP_SUCCESS;
+////        }
+//    }
 
     // Method to update an Asset in the Asset table
     public String update(AssetItemDto assetItemDto){

@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AssetDto {
+public class ManageRoomAllocationDto {
 
-    private int assetID;
-    private String itemName;
-    private String receiptDate;
-    private int allocatedRoom;
+    private int allocationID;
 
+    private String hostel;
+
+    private String level;
+    private int roomNo;
 }
