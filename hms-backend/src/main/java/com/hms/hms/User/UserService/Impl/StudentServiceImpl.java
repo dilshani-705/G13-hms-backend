@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -70,6 +71,26 @@ public class StudentServiceImpl implements StudentService {
 
         studentRepository.save(student);
         return studentMapper.mapStudentToDto(student);
+    }
+
+    @Override
+    public Student updateStudentPartial(String studentId, Map<String, Object> updates) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + studentId));
+
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "hostel":
+                    student.setHostelID((String) value);
+                    break;
+                case "room":
+                    student.setRoomID((String) value);
+                    break;
+                // Add more fields as needed
+            }
+        });
+
+        return studentRepository.save(student);
     }
 
     @Override
