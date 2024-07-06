@@ -1,7 +1,8 @@
 package com.hms.hms.MaintenanceFines.DTO;
 
-public class RoomMaintenanceDTO {
+import java.util.Set;
 
+public class RoomMaintenanceDTO {
     private Long id;
     private String roomNumber;
 

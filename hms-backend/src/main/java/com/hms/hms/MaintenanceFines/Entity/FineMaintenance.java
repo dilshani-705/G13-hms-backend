@@ -1,6 +1,10 @@
 package com.hms.hms.MaintenanceFines.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "fine_maintenance")
@@ -13,11 +17,9 @@ public class FineMaintenance {
     private Double amount;
     private String description;
 
-    @Column(name = "student_id")
-    private String studentId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "room_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_number", referencedColumnName = "room_number", nullable = false)
+    @JsonIgnore
     private RoomMaintenance roomMaintenance;
 
     // Getters and Setters
@@ -46,14 +48,6 @@ public class FineMaintenance {
         this.description = description;
     }
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
     public RoomMaintenance getRoomMaintenance() {
         return roomMaintenance;
     }
@@ -61,4 +55,12 @@ public class FineMaintenance {
     public void setRoomMaintenance(RoomMaintenance roomMaintenance) {
         this.roomMaintenance = roomMaintenance;
     }
+
+//    public Set<StudentMaintenance> getStudents() {
+//        return students;
+//    }
+//
+//    public void setStudents(Set<StudentMaintenance> students) {
+//        this.students = students;
+//    }
 }

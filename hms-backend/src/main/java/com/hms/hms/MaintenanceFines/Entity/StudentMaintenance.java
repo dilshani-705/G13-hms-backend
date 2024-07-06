@@ -1,5 +1,6 @@
 package com.hms.hms.MaintenanceFines.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,11 +12,12 @@ public class StudentMaintenance {
     private String name;
     private String studentId;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_number", referencedColumnName = "room_number", nullable = false)
+    @JsonIgnore
     private RoomMaintenance roomMaintenance;
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -47,4 +49,6 @@ public class StudentMaintenance {
     public void setRoomMaintenance(RoomMaintenance roomMaintenance) {
         this.roomMaintenance = roomMaintenance;
     }
+
+
 }

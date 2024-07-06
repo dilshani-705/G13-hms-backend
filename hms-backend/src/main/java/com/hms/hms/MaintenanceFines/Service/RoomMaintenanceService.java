@@ -15,10 +15,9 @@ public class RoomMaintenanceService {
     @Autowired
     private RoomMaintenanceRepository roomMaintenanceRepository;
 
-    public RoomMaintenanceDTO findById(Long id) {
-        Optional<RoomMaintenance> roomMaintenanceOptional = roomMaintenanceRepository.findById(id);
-        RoomMaintenance roomMaintenance = roomMaintenanceOptional.orElseThrow(() ->
-                new EntityNotFoundException("Room Maintenance not found with id: " + id));
+    public RoomMaintenanceDTO getRoomMaintenanceByRoomNumber(String roomNumber) {
+        RoomMaintenance roomMaintenance = roomMaintenanceRepository.findByRoomNumber(roomNumber)
+                .orElseThrow(() -> new EntityNotFoundException("Room Maintenance not found with room number: " + roomNumber));
         return convertToDto(roomMaintenance);
     }
 
