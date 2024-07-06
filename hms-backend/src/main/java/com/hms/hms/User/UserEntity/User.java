@@ -24,7 +24,7 @@ public class User {
     private String address;
     @Column(name="dob")
     private Date dob;
-    @Column(name="email", unique=true)
+    @Column(name="email")
     private String email;
     @Column(name="gender")
     private String gender;

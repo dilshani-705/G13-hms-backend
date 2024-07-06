@@ -15,6 +15,7 @@ public class RoomMember {
     @Column(name = "member_id")
     private String MemberID;
 
-    @Column(name = "room_id")
-    private String RoomID;
+    private int room;
+
+    private String hostel;
 }

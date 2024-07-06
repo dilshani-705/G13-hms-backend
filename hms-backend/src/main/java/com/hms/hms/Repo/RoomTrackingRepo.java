@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RoomTrackingRepo extends JpaRepository <RoomMember, String> {
 
-    @Query(value = "SELECT s.fullName FROM RoomMember rm JOIN Student s ON rm.MemberID = s.userID WHERE rm.RoomID = ?1")
+    @Query(value = "SELECT s.fullName FROM RoomMember rm JOIN Student s ON rm.MemberID = s.userID WHERE rm.room = ?1")
     public List<String> findMemberByRoomNo(String roomNo);
 
 

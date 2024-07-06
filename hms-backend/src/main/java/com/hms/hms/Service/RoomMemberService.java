@@ -36,26 +36,27 @@ public class RoomMemberService {
     // Method to save a new room member in the room member table
     public String addRoomMember(RoomMemberDto roomMemberDto){
 
-        count++;
+
         // Check if member ID already exists
         if(roomMemberRepo.existsById(roomMemberDto.getMemberID())){
-            dCount++;
             // Return response indicating duplication
             return VarList.RSP_DUPLICATED;
         }else{
-            if (dCount == 0){
-                // Save new member to repository
-                roomMemberRepo.save(modelMapper.map(roomMemberDto, RoomMember.class));
-            }
-            if (count == 4){
-                count = 0;
-            }
+
+            // Save new member to repository
+            roomMemberRepo.save(modelMapper.map(roomMemberDto, RoomMember.class));
             // Return success response
             return VarList.RSP_SUCCESS;
         }
-
+//            if (count == 4){
+//                count = 0;
+//            }
 
     }
+
+
+
+
 
     // Method to update a room member in the room member table
     public String updateRoomMember( RoomMemberDto roomMemberDto){
@@ -84,5 +85,20 @@ public class RoomMemberService {
             return VarList.RSP_NO_DATA_FOUND;
         }
     }
+
+    // Method to delete a room member from the room member table for duplicate memeber handling
+    public String deleteRoomMemberByMember(String member){
+        // Check if room member exists
+        if (roomMemberRepo.existsById(member)){
+            // Delete room member from repository
+            roomMemberRepo.deleteById(member);
+            // Return success response
+            return VarList.RSP_SUCCESS;
+        }else{
+            // Return response indicating room member not found
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
+
 
 }
