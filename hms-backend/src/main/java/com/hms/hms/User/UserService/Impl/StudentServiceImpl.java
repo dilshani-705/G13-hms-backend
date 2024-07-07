@@ -100,4 +100,10 @@ public class StudentServiceImpl implements StudentService {
 
         studentRepository.deleteById(student_id);
     }
+
+    @Override
+    public List<StudentDto> getAllStudentByGender(String gender) {
+        List<Student> students = studentRepository.findAllByGender(gender);
+        return students.stream().map(studentMapper::mapStudentToDto).collect(Collectors.toList());
+    }
 }

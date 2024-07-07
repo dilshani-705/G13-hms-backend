@@ -14,5 +14,5 @@ public interface StudentService {
     Student updateStudentPartial(String studentId, Map<String, Object> updates);
 
     void deleteStudent(String userId);
-
+    List<StudentDto> getAllStudentByGender(String gender);
 }
