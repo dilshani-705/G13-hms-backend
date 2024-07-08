@@ -3,6 +3,7 @@ package com.hms.hms.MaintenanceFines.Service;
 import com.hms.hms.Fines.exception.ResourceNotFoundException;
 import com.hms.hms.MaintenanceFines.DTO.FineMaintenanceDTO;
 import com.hms.hms.MaintenanceFines.DTO.FineMaintenanceView;
+import com.hms.hms.MaintenanceFines.DTO.FineMaintenanceViewDTO;
 import com.hms.hms.MaintenanceFines.Entity.FineMaintenance;
 import com.hms.hms.MaintenanceFines.Entity.RoomMaintenance;
 import com.hms.hms.MaintenanceFines.Repository.FineMaintenanceRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FineMaintenanceService implements FineMaintenanceServiceInterface {
@@ -28,6 +30,14 @@ public class FineMaintenanceService implements FineMaintenanceServiceInterface {
     public List<FineMaintenanceDTO> getFinesByStudentId(String studentId) {
         List<FineMaintenanceDTO> fineMaintenance = fineMaintenanceRepository.findFinesByStudentId(studentId);
         return fineMaintenance;
+    }
+
+    public List<FineMaintenanceViewDTO> getAllFineMaintenance() {
+        return fineMaintenanceRepository.findAllFines();
+    }
+
+    public List<FineMaintenanceViewDTO> getFinesByRoomNumber(String roomNumber) {
+        return fineMaintenanceRepository.findFinesByRoomNumber(roomNumber);
     }
 
     public FineMaintenance createFine(FineMaintenanceDTO fineMaintenanceDTO) {

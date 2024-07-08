@@ -2,6 +2,7 @@ package com.hms.hms.MaintenanceFines.Controller;
 
 import com.hms.hms.MaintenanceFines.DTO.FineMaintenanceDTO;
 import com.hms.hms.MaintenanceFines.DTO.FineMaintenanceView;
+import com.hms.hms.MaintenanceFines.DTO.FineMaintenanceViewDTO;
 import com.hms.hms.MaintenanceFines.Entity.FineMaintenance;
 import com.hms.hms.MaintenanceFines.Repository.FineMaintenanceRepository;
 import com.hms.hms.MaintenanceFines.ResourceNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/fineMaintenance")
@@ -35,6 +37,16 @@ public class FineMaintenanceController {
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/all")
+    public List<FineMaintenanceViewDTO> getAllFineMaintenance() {
+        return fineMaintenanceService.getAllFineMaintenance();
+    }
+
+    @GetMapping("/room/{roomNumber}")
+    public List<FineMaintenanceViewDTO> getFinesByRoomNumber(@PathVariable String roomNumber) {
+        return fineMaintenanceService.getFinesByRoomNumber(roomNumber);
     }
 
     @PostMapping
