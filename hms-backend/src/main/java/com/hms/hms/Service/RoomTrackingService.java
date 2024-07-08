@@ -18,13 +18,13 @@ public class RoomTrackingService {
     @Autowired
     private AssetTrackingRepo assetTrackingRepo;
 
-    public List<String> findMemberByRoomNo(String roomNo){
-        return roomTrackingRepo.findMemberByRoomNo(roomNo);
+    public List<String> findMemberByRoomNo(String roomNo , String hostel){
+        return roomTrackingRepo.findMemberByRoomNo(roomNo , hostel);
     }
 
 
-    public List<String> findAssetByRoomNo(String roomNo){
-        return assetTrackingRepo.findAssetByRoomNo(roomNo);
+    public List<String> findAssetByRoomNo(String roomNo , String hostel){
+        return assetTrackingRepo.findAssetByRoomNo(roomNo , hostel);
     }
 
 }

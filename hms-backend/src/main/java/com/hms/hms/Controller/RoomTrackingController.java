@@ -15,14 +15,14 @@ public class RoomTrackingController {
 
     @Autowired
     private RoomTrackingService roomTrackingService;
-    @GetMapping(value = "/members/{roomNo}")
-    public List<String> memberController(@PathVariable String roomNo){
-        return roomTrackingService.findMemberByRoomNo(roomNo);
+    @GetMapping(value = "/members/{roomNo}/{hostel}")
+    public List<String> memberController(@PathVariable String roomNo , @PathVariable String hostel){
+        return roomTrackingService.findMemberByRoomNo(roomNo , hostel);
     }
 
-    @GetMapping(value = "/assets/{roomNo}")
-    public List<String> assetController(@PathVariable String roomNo){
-        return roomTrackingService.findAssetByRoomNo(roomNo);
+    @GetMapping(value = "/assets/{roomNo}/{hostel}")
+    public List<String> assetController(@PathVariable String roomNo , @PathVariable String hostel){
+        return roomTrackingService.findAssetByRoomNo(roomNo ,  hostel);
     }
 
 }

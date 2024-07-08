@@ -2,6 +2,7 @@ package com.hms.hms.Controller;
 
 import com.hms.hms.Dto.AssetDto;
 import com.hms.hms.Dto.ResponseDto;
+import com.hms.hms.Dto.RoomMemberCheckRequest;
 import com.hms.hms.Dto.RoomMemberDto;
 import com.hms.hms.Service.RoomMemberService;
 import com.hms.hms.Util.VarList;
@@ -183,6 +184,45 @@ public class RoomMemberController {
         }
     }
 
+    // Endpoint to check if any room member does not exist in the 'student' table
+    @PostMapping("/checkRoomMembers")
+    public ResponseEntity checkRoomMembers(@RequestBody RoomMemberCheckRequest request) {
+        try {
+            boolean exists = roomMemberService.checkRoomMembersExist(request);
+            System.out.println(exists);
+            if (exists) {
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("All members exist");
+            } else {
+                responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDto.setMessage("One or more members do not exist");
+            }
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+        }
+    }
+
+    // Endpoint for generating unique room number
+    @GetMapping("/generateRoomNumber")
+    public ResponseEntity generateRoomNumber(@RequestParam String hostel, @RequestParam String level) {
+        try {
+            String roomNumber = roomMemberService.generateUniqueRoomNumber(hostel, level);
+            responseDto.setCode(VarList.RSP_SUCCESS);
+            responseDto.setMessage("Successfully generated room number");
+            responseDto.setContent(roomNumber);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+        }
+    }
 
 
 }

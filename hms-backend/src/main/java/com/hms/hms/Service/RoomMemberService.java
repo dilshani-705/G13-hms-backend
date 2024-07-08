@@ -1,5 +1,6 @@
 package com.hms.hms.Service;
 
+import com.hms.hms.Dto.RoomMemberCheckRequest;
 import com.hms.hms.Dto.RoomMemberDto;
 import com.hms.hms.Entity.Asset;
 import com.hms.hms.Entity.RoomMember;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -98,6 +100,39 @@ public class RoomMemberService {
             // Return response indicating room member not found
             return VarList.RSP_NO_DATA_FOUND;
         }
+    }
+
+
+    public boolean checkRoomMembersExist(RoomMemberCheckRequest request) {
+        for (String memberId : request.getRoomMembers()) {
+            boolean exists = roomMemberRepo.existsByMemberIdAndHostelIdAndLevel(memberId , request.getHostel(), request.getLevel());
+            System.out.println(exists);
+            if (!exists) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String generateUniqueRoomNumber(String hostel, String level) {
+        // Fetch existing room numbers for the given hostel and level
+        List<String> existingRoomNumbers = roomMemberRepo.findRoomNumbersByHostelAndLevel(hostel, level);
+
+
+        // Generate a room number randomly from the existingRoomNumbers list
+        Random random = new Random();
+
+
+        boolean result;
+        String newRoomNumber;
+        do {
+            int index = random.nextInt(existingRoomNumbers.size());
+            newRoomNumber = existingRoomNumbers.get(index);
+
+            result = roomMemberRepo.findDuplicateRoomNo(hostel, newRoomNumber);
+        } while (result);
+
+        return newRoomNumber;
     }
 
 
