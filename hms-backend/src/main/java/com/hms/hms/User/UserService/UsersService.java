@@ -15,6 +15,8 @@ public interface UsersService {
     LoginMessage login(LoginDto loginDto);
     //update user
     UserDto updateUser(String userId,UserDto updatedUser);
+
+    boolean changePassword(String userId, String currentPassword, String newPassword);
     //delete user
     void deleteUser(String userId);
 }

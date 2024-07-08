@@ -59,7 +59,7 @@ public class UsersServiceImpl implements UsersService {
                     return new LoginMessage(msg, false);
                 }
             } else {
-                msg = "Password is incorrect";
+                msg = "PasswordDto is incorrect";
                 return new LoginMessage(msg, false);
             }
         } else {
@@ -84,6 +84,18 @@ public class UsersServiceImpl implements UsersService {
             user.setPassword(updatedUser.getPassword(),passwordEncoder);
         usersRepo.save(user);
         return userMapper.mapUserToDto(user);
+    }
+
+    @Override
+    public boolean changePassword(String userId, String currentPassword, String newPassword) {
+        User user = usersRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            return false;
+        }
+        user.setPassword(newPassword, passwordEncoder);
+        usersRepo.save(user);
+        return true;
     }
 
     @Override
