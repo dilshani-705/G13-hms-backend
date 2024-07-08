@@ -1,5 +1,8 @@
 package com.hms.hms.Outgoing.service.impl;
 
+import com.hms.hms.Fees.Dto.FeeDto;
+import com.hms.hms.Fees.entity.Fee;
+import com.hms.hms.Fees.mapper.FeeMapper;
 import com.hms.hms.Outgoing.Dto.OutgoingDto;
 import com.hms.hms.Outgoing.entity.Outgoing;
 import com.hms.hms.Outgoing.exception.ResourceNotFoundException;
@@ -54,5 +57,23 @@ public class OutgoingServiceImpl implements OutgoingService {
                 () -> new ResourceNotFoundException("Outgoing is not exists with given id:" + outgoingId)
         );
         outgoingRepository.deleteById(outgoingId);
+    }
+
+    @Override
+    public List<OutgoingDto> getOutgoingByType(String selectOutgoingType) {
+        List<Outgoing> outgoings = outgoingRepository.findBySelectOutgoingType(selectOutgoingType);
+        return outgoings.stream().map(OutgoingMapper::mapToOutgoingDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OutgoingDto> getOutgoingByHostelType(String selectHostelType) {
+        List<Outgoing> outgoings = outgoingRepository.findBySelectHostelType(selectHostelType);
+        return outgoings.stream().map(OutgoingMapper::mapToOutgoingDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OutgoingDto> findOutgoingsWithNullArrivalDate() {
+        List<Outgoing> outgoings = outgoingRepository.findByArrivalDateIsNull();
+        return outgoings.stream().map(OutgoingMapper::mapToOutgoingDto).collect(Collectors.toList());
     }
 }

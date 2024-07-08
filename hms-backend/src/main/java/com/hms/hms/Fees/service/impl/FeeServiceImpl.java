@@ -5,6 +5,9 @@ import com.hms.hms.Fees.entity.Fee;
 import com.hms.hms.Fees.mapper.FeeMapper;
 import com.hms.hms.Fees.repository.FeeRepository;
 import com.hms.hms.Fees.service.FeeService;
+import com.hms.hms.Fines.Dto.FinesDto;
+import com.hms.hms.Fines.entity.Fines;
+import com.hms.hms.Fines.mapper.FinesMapper;
 import com.hms.hms.Outgoing.Dto.OutgoingDto;
 import com.hms.hms.Outgoing.entity.Outgoing;
 import com.hms.hms.Outgoing.exception.ResourceNotFoundException;
@@ -63,6 +66,24 @@ public class FeeServiceImpl implements FeeService {
                 () -> new ResourceNotFoundException("Fee is not exists with given id:" + feeId)
         );
         feeRepository.deleteById(feeId);
+    }
+
+    @Override
+    public List<FeeDto> searchFeesByTgNumber(String tgNumber) {
+        List<Fee> fees = feeRepository.findByTgNumberContainingIgnoreCase(tgNumber);
+        return fees.stream().map(FeeMapper::mapToFeeDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FeeDto> filterFeesByStatus(String status) {
+        List<Fee> fees = feeRepository.findByStatus(status);
+        return fees.stream().map(FeeMapper::mapToFeeDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FeeDto> filterFeesByNullStatus() {
+        List<Fee> fees = feeRepository.findByStatusIsNull();
+        return fees.stream().map(FeeMapper::mapToFeeDto).collect(Collectors.toList());
     }
 }
 
