@@ -1,9 +1,11 @@
 package com.hms.hms.User.UserController;
 
 import com.hms.hms.User.UserDataTransferObject.AdminDto;
+import com.hms.hms.User.UserDataTransferObject.StudentDto;
 import com.hms.hms.User.UserDataTransferObject.SubWardenDto;
 import com.hms.hms.User.UserDataTransferObject.WardenDto;
 import com.hms.hms.User.UserService.AdminService;
+import com.hms.hms.User.UserService.StudentService;
 import com.hms.hms.User.UserService.WardenService;
 import lombok.AllArgsConstructor;
 import org.hibernate.boot.model.internal.WrappedInferredData;
@@ -12,12 +14,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/wardens") 
 public class WardenController {
     private WardenService wardenService;
+    private StudentService studentService;
     //Add a warden
     @PostMapping
     public ResponseEntity<WardenDto> createWarden(@RequestBody WardenDto wardenDto){
@@ -30,6 +34,17 @@ public class WardenController {
     public ResponseEntity<List<WardenDto>>getAllWardens(){
         List<WardenDto>warden=wardenService.getAllWardens();
         return ResponseEntity.ok(warden);
+    }
+    //Get sub warden gender
+    @GetMapping("/{WardenId}/students")
+    public ResponseEntity<List<StudentDto>> getStudentsByWardenGender(@PathVariable("WardenId") String subWardenId) {
+        Optional<Optional<WardenDto>> warden = Optional.ofNullable(Optional.ofNullable(wardenService.getWardenById(subWardenId)));
+        if (warden.isPresent()) {
+            List<StudentDto> students = studentService.getAllStudentByGender(warden.get().get().getGender());
+            return ResponseEntity.ok(students);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
     @GetMapping("/{wardenId}")
     public ResponseEntity<WardenDto>getWardenById(@PathVariable("wardenId") String warden_id){
