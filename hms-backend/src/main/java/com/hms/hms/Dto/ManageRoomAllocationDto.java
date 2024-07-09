@@ -1,6 +1,5 @@
 package com.hms.hms.Dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +7,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RoomMemberDto {
+public class ManageRoomAllocationDto {
 
-    private String MemberID;
-    private int room;
+    private int allocationID;
+
     private String hostel;
+
+    private String level;
+    private int roomNo;
 }
