@@ -1,6 +1,7 @@
 package com.hms.hms.Outgoing.controller;
 
 
+import com.hms.hms.Fees.Dto.FeeDto;
 import com.hms.hms.Outgoing.Dto.OutgoingDto;
 import com.hms.hms.Outgoing.entity.Outgoing;
 import com.hms.hms.Outgoing.mapper.OutgoingMapper;
@@ -45,5 +46,28 @@ public class OutgoingController {
     public ResponseEntity<String> deleteOutgoing(@PathVariable("id") Long outgoingId) {
         outgoingService.deleteOutgoing(outgoingId);
         return ResponseEntity.ok("Outgoing details deleted successfully");
+    }
+
+    @GetMapping(value = "/type/{type}", produces = "application/json")
+    public ResponseEntity<List<OutgoingDto>> getOutgoingByType(@PathVariable("type") String selectOutgoingType) {
+        List<OutgoingDto> outgoing = outgoingService.getOutgoingByType(selectOutgoingType);
+        return ResponseEntity.ok(outgoing);
+    }
+
+    @GetMapping(value = "/hostel/{type}", produces = "application/json")
+    public ResponseEntity<List<OutgoingDto>> getOutgoingByHostelType(@PathVariable("type") String selectHostelType) {
+        List<OutgoingDto> outgoing = outgoingService.getOutgoingByHostelType(selectHostelType);
+        return ResponseEntity.ok(outgoing);
+    }
+
+//    @GetMapping("/null-arrival-date")
+//    public List<OutgoingDto> getOutgoingsWithNullArrivalDate() {
+//        return outgoingService.findOutgoingsWithNullArrivalDate();
+//    }
+
+    @GetMapping(value = "/arrival-date/null", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OutgoingDto>> findOutgoingsWithNullArrivalDate() {
+        List<OutgoingDto>outgoing = outgoingService.findOutgoingsWithNullArrivalDate();
+        return ResponseEntity.ok(outgoing);
     }
 }

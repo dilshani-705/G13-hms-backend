@@ -50,6 +50,24 @@ public class FinesController {
         return ResponseEntity.ok(fines);
     }
 
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FinesDto>> searchFinesByTgNumber(@RequestParam("tgNumber") String tgNumber) {
+        List<FinesDto> fines = finesService.searchFinesByTgNumber(tgNumber);
+        return ResponseEntity.ok(fines);
+    }
+
+    @GetMapping(value = "/status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FinesDto>> filterFinesByStatus(@RequestParam String status) {
+        List<FinesDto> fines = finesService.filterFinesByStatus(status);
+        return ResponseEntity.ok(fines);
+    }
+
+    @GetMapping(value = "/status/null", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FinesDto>> filterFinesByNullStatus() {
+        List<FinesDto> fines = finesService.filterFinesByNullStatus();
+        return ResponseEntity.ok(fines);
+    }
+
     @PutMapping( value = "{id}",produces = "application/json")
     public ResponseEntity<FinesDto> updateFines(@PathVariable("id")Long finesId, @RequestBody FinesDto updateFines){
         FinesDto finesDto = finesService.updateFines(finesId, updateFines);
