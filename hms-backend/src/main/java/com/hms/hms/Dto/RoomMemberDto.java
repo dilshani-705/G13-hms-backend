@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class RoomMemberDto {
 
     private String MemberID;
-    private String RoomID;
+    private int room;
+    private String hostel;
 }

@@ -51,5 +51,23 @@ public class FinesServiceImpl implements FinesService {
         );
         finesRepository.deleteById(finesId);
     }
+
+    @Override
+    public List<FinesDto> searchFinesByTgNumber(String tgNumber) {
+        List<Fines> fines = finesRepository.findByTgNumberContainingIgnoreCase(tgNumber);
+        return fines.stream().map(FinesMapper::mapToFinesDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FinesDto> filterFinesByStatus(String status) {
+        List<Fines> fines = finesRepository.findByStatus(status);
+        return fines.stream().map(FinesMapper::mapToFinesDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FinesDto> filterFinesByNullStatus() {
+        List<Fines> fines = finesRepository.findByStatusIsNull();
+        return fines.stream().map(FinesMapper::mapToFinesDto).collect(Collectors.toList());
+    }
 }
 

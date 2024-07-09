@@ -9,5 +9,8 @@ public interface FinesService {
     List<FinesDto> getAllFines();
     FinesDto updateFines(Long finesId, FinesDto updateFines);
     void deleteFines (Long finesId);
+    List<FinesDto> searchFinesByTgNumber(String tgNumber);
+    List<FinesDto> filterFinesByStatus(String status);
+    List<FinesDto> filterFinesByNullStatus();
 
 }

@@ -3,6 +3,7 @@ package com.hms.hms.Fees.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hms.hms.Fees.Dto.FeeDto;
 import com.hms.hms.Fees.service.FeeService;
+import com.hms.hms.Fines.Dto.FinesDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,24 @@ public class FeeController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FeeDto>> getAllFee() {
         List<FeeDto> fees = feeService.getAllFee();
+        return ResponseEntity.ok(fees);
+    }
+
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FeeDto>> searchFeesByTgNumber(@RequestParam("tgNumber") String tgNumber) {
+        List<FeeDto> fees = feeService.searchFeesByTgNumber(tgNumber);
+        return ResponseEntity.ok(fees);
+    }
+
+    @GetMapping(value = "/status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FeeDto>> filterFeesByStatus(@RequestParam String status) {
+        List<FeeDto> fees = feeService.filterFeesByStatus(status);
+        return ResponseEntity.ok(fees);
+    }
+
+    @GetMapping(value = "/status/null", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FeeDto>> filterFeesByNullStatus() {
+        List<FeeDto> fees = feeService.filterFeesByNullStatus();
         return ResponseEntity.ok(fees);
     }
 
