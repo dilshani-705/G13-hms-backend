@@ -2,6 +2,7 @@ package com.hms.hms.Controller;
 
 
 import com.hms.hms.Dto.AssetDto;
+import com.hms.hms.Dto.ManageRoomAllocationDto;
 import com.hms.hms.Dto.ResponseDto;
 import com.hms.hms.Service.AssetService;
 import com.hms.hms.Util.VarList;
@@ -52,22 +53,26 @@ public class AssetController {
     }
 
     // Endpoint for searching an asset by ID
-    @GetMapping("/searchAsset/{assetID}")
-    public ResponseEntity searchAssetByID(@PathVariable int assetID) {
-        try {
-            // Call service layer to search asset by ID
-            AssetDto assetDto = assetService.searchAssetByID(assetID);
+    @GetMapping("/searchDetail/{hostel}/{allocatedRoom}")
+    public ResponseEntity searchDetailByID(@PathVariable String hostel , @PathVariable int allocatedRoom) {
 
-            // Check if asset is found
-            if (assetDto == null) {
+        try {
+            // Call service layer to search detail by ID
+            List<AssetDto> assetDtoList = assetService.searchDetailByID(hostel , allocatedRoom);
+
+
+            // Check if detail is found
+            if (assetDtoList.isEmpty()) {
                 responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
-                responseDto.setMessage("No records of the assets");
+                responseDto.setMessage("No records of Your searching one");
+                responseDto.setContent(assetDtoList);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
             } else {
                 responseDto.setCode(VarList.RSP_SUCCESS);
-                responseDto.setMessage("Successfully fetched the asset");
+                responseDto.setMessage("Details searching Successfully");
+                responseDto.setContent(assetDtoList);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
             }
-            responseDto.setContent(assetDto);
-            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
 
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex.getMessage());
@@ -84,21 +89,15 @@ public class AssetController {
     @PostMapping("/addAsset")
     public ResponseEntity addAsset(@RequestBody AssetDto assetDto) {
         try {
-            // Call service to add new asset
+            // Call service to add new asset detail
             String response = assetService.addNewAsset(assetDto);
 
             // Check response from service
-            if (response.equals(VarList.RSP_SUCCESS)) {
                 responseDto.setCode(VarList.RSP_SUCCESS);
-                responseDto.setMessage("Successfully added asset");
+                responseDto.setMessage("Successfully added new Asset");
                 responseDto.setContent(assetDto);
                 return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
-            } else {
-                responseDto.setCode(VarList.RSP_DUPLICATED);
-                responseDto.setMessage("Asset ID already exists");
-                responseDto.setContent(assetDto);
-                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
-            }
+
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex.getMessage());
 
@@ -108,27 +107,35 @@ public class AssetController {
             responseDto.setContent(null);
             return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
         }
+
     }
 
     // Endpoint for updating an asset
-    @PutMapping("/updateAsset")
-    public ResponseEntity updateAsset(@RequestBody AssetDto assetDto) {
+    @PutMapping("/updateAsset/{assetID}/{itemName}/{hostel}/{allocatedRoom}/{updateItemName}")
+    public ResponseEntity<?> updateAsset(@PathVariable int assetID,
+                                         @PathVariable String itemName,
+                                         @PathVariable String hostel,
+                                         @PathVariable int allocatedRoom,
+                                         @PathVariable String updateItemName) {
         try {
-            // Call service layer to update asset
-            String response = assetService.updateAsset(assetDto);
+            // Call service layer to update an asset
+            String response = assetService.updateAsset(assetID, itemName, hostel, allocatedRoom, updateItemName);
+
+            AssetDto assetDto = assetService.fetchUpdatedDetailByID(assetID);
 
             // Check response from service
             if (response.equals(VarList.RSP_SUCCESS)) {
                 responseDto.setCode(VarList.RSP_SUCCESS);
                 responseDto.setMessage("Successfully updated the asset");
                 responseDto.setContent(assetDto);
-                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } else {
-                responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
-                responseDto.setMessage("Not found such an asset");
+                responseDto.setCode(VarList.SAME_UPDATED);
+                responseDto.setMessage("You have not updated this asset");
                 responseDto.setContent(assetDto);
-                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(responseDto, HttpStatus.NOT_MODIFIED);
             }
+
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex.getMessage());
 
@@ -136,9 +143,37 @@ public class AssetController {
             responseDto.setCode(VarList.RSP_ERROR);
             responseDto.setMessage(ex.getMessage());
             responseDto.setContent(null);
-            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+//    @PutMapping("/updateAsset")
+//    public ResponseEntity updateAsset(@RequestBody AssetDto assetDto) {
+//        try {
+//            // Call service layer to update asset
+//            String response = assetService.updateAsset(assetDto);
+//
+//            // Check response from service
+//            if (response.equals(VarList.RSP_SUCCESS)) {
+//                responseDto.setCode(VarList.RSP_SUCCESS);
+//                responseDto.setMessage("Successfully updated the asset");
+//                responseDto.setContent(assetDto);
+//                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+//            } else {
+//                responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
+//                responseDto.setMessage("Not found such an asset");
+//                responseDto.setContent(assetDto);
+//                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("ERROR: " + ex.getMessage());
+//
+//            // Handle exceptions
+//            responseDto.setCode(VarList.RSP_ERROR);
+//            responseDto.setMessage(ex.getMessage());
+//            responseDto.setContent(null);
+//            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+//        }
+//    }
 
     // Endpoint for deleting an asset by ID
     @DeleteMapping("/deleteAsset/{assetID}")
