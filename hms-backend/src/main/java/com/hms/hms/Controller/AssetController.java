@@ -112,12 +112,14 @@ public class AssetController {
 
     // Endpoint for updating an asset
     @PutMapping("/updateAsset/{assetID}/{itemName}/{hostel}/{allocatedRoom}/{updateItemName}")
-    public ResponseEntity<?> updateAsset(@PathVariable int assetID,
+    public ResponseEntity updateAsset(@PathVariable int assetID,
                                          @PathVariable String itemName,
                                          @PathVariable String hostel,
                                          @PathVariable int allocatedRoom,
                                          @PathVariable String updateItemName) {
+
         try {
+            System.out.println(assetID + itemName + hostel + allocatedRoom + updateItemName);
             // Call service layer to update an asset
             String response = assetService.updateAsset(assetID, itemName, hostel, allocatedRoom, updateItemName);
 
@@ -128,12 +130,12 @@ public class AssetController {
                 responseDto.setCode(VarList.RSP_SUCCESS);
                 responseDto.setMessage("Successfully updated the asset");
                 responseDto.setContent(assetDto);
-                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+                return new ResponseEntity(responseDto, HttpStatus.OK);
             } else {
                 responseDto.setCode(VarList.SAME_UPDATED);
                 responseDto.setMessage("You have not updated this asset");
                 responseDto.setContent(assetDto);
-                return new ResponseEntity<>(responseDto, HttpStatus.NOT_MODIFIED);
+                return new ResponseEntity(responseDto, HttpStatus.NOT_MODIFIED);
             }
 
         } catch (Exception ex) {
@@ -143,7 +145,7 @@ public class AssetController {
             responseDto.setCode(VarList.RSP_ERROR);
             responseDto.setMessage(ex.getMessage());
             responseDto.setContent(null);
-            return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 //    @PutMapping("/updateAsset")
