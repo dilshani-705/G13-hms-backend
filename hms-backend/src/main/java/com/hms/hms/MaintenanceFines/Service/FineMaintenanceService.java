@@ -59,4 +59,24 @@ public class FineMaintenanceService implements FineMaintenanceServiceInterface {
         }
     }
 
+    public void deleteFine(Long id) {
+        FineMaintenance fine = fineMaintenanceRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Fine not found with id: " + id));
+        fineMaintenanceRepository.delete(fine);
+    }
+
+    public FineMaintenance updateFineMaintenance(Long id, FineMaintenanceDTO fineMaintenanceDTO) {
+        FineMaintenance fine = fineMaintenanceRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Fine not found with id: " + id));
+
+        RoomMaintenance roomMaintenance = roomMaintenanceRepository.findByRoomNumber(fineMaintenanceDTO.getRoomNumber())
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with room number: " + fineMaintenanceDTO.getRoomNumber()));
+
+        fine.setAmount(fineMaintenanceDTO.getAmount());
+        fine.setDescription(fineMaintenanceDTO.getDescription());
+        fine.setRoomMaintenance(roomMaintenance);
+
+        return fineMaintenanceRepository.save(fine);
+    }
+
 }

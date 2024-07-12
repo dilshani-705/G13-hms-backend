@@ -39,6 +39,28 @@ public class FineMaintenanceController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFine(@PathVariable Long id) {
+        try {
+            fineMaintenanceService.deleteFine(id);
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateFineMaintenance(@PathVariable Long id, @RequestBody FineMaintenanceDTO fineMaintenanceDTO) {
+        try {
+            FineMaintenance updatedFine = fineMaintenanceService.updateFineMaintenance(id, fineMaintenanceDTO);
+            return ResponseEntity.ok(updatedFine);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating fine maintenance: " + e.getMessage());
+        }
+    }
+
     @GetMapping("/all")
     public List<FineMaintenanceViewDTO> getAllFineMaintenance() {
         return fineMaintenanceService.getAllFineMaintenance();
